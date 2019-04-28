@@ -1,4 +1,4 @@
-package leetcode.conquer.sol;
+package leetcode.conquer.sol.tree.bst;
 
 public class KthSmallestElementinaBST {
 
