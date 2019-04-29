@@ -10,6 +10,7 @@ import leetcode.conquer.tree.TreeNode;
  * inorder to find number of k notes thats closet to the target. we first push all node vals through a stack using inorder traversal
  * once the stack is established, when reduce the stack by comparing the first and last node val diff to the target.
  * if the first node val diff is greater than the last node val diff when pop the first if is not we pop the last until the K size is reached.
+ * time o(n), space o(n)
  */
 public class ClosestBinarySearchTreeValueII {
 	public ClosestBinarySearchTreeValueII() {}
