@@ -1,4 +1,4 @@
-package leetcode.conquer.sol.tree.bst;
+package leetcode.conquer.sol.tree;
 
 import java.util.LinkedList;
 import java.util.Queue;
