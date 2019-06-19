@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import leetcode.conquer.sol.recursion.TargetSum;
 import leetcode.conquer.sol.recursion.WordLadderII;
 
 public class Main {
@@ -12,9 +13,11 @@ public class Main {
 		String end = "cog";
 				
 		List<String> str = new ArrayList<>(Arrays.asList("hot","dot","dog","lot","log","cog"));
+		int[] arr = new int[5];
+		Arrays.fill(arr, 1);
 		
-		WordLadderII sol = new WordLadderII();
+		TargetSum sol = new TargetSum();
 		
-		sol.findLadders(start, end, str);
+		sol.findTargetSumWays(arr, 3);
 	}
 }
