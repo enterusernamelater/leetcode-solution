@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import leetcode.conquer.sol.dp.DecodeWaysII;
 import leetcode.conquer.sol.recursion.TargetSum;
 import leetcode.conquer.sol.recursion.WordLadderII;
 
@@ -16,8 +17,8 @@ public class Main {
 		int[] arr = new int[5];
 		Arrays.fill(arr, 1);
 		
-		TargetSum sol = new TargetSum();
+		DecodeWaysII sol = new DecodeWaysII();
 		
-		sol.findTargetSumWays(arr, 3);
+		sol.numDecodings("100");
 	}
 }
