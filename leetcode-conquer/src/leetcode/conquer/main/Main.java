@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import leetcode.conquer.sol.dp.DecodeWaysII;
-import leetcode.conquer.sol.recursion.TargetSum;
-import leetcode.conquer.sol.recursion.WordLadderII;
+import leetcode.conquer.sol.dp.LongestPalindromicSubsequence;
 
 public class Main {
 	public static void main(String[] args) {
@@ -17,8 +15,8 @@ public class Main {
 		int[] arr = new int[5];
 		Arrays.fill(arr, 1);
 		
-		DecodeWaysII sol = new DecodeWaysII();
+		LongestPalindromicSubsequence sol = new LongestPalindromicSubsequence();
 		
-		sol.numDecodings("100");
+		sol.longestPalindromeSubseq("bbbab");
 	}
 }
