@@ -14,13 +14,11 @@ package leetcode.conquer.sol.binarysearch;
 public class SearchInRotatedSortedArray {
 	public SearchInRotatedSortedArray() {}
 	
-    public int search(int[] nums, int target) {
-        if(nums.length == 0) return -1;
-        
+    public int search(int[] nums, int target) {   
         int l = 0;
         int r = nums.length-1;
 
-        while(l<r){
+        while(l<=r){
             int mid = (l+r)/2;
             if(target == nums[mid]) return mid;
             if(nums[l]<=nums[mid]){
@@ -38,6 +36,6 @@ public class SearchInRotatedSortedArray {
             }
         }
         
-        return nums[l] == target? l : -1;
+        return -1;
     }
 }
