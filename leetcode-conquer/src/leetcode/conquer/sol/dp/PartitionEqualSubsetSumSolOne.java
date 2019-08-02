@@ -4,7 +4,7 @@ package leetcode.conquer.sol.dp;
  * a very similar solution to knapsack problem using a two dimension array
  * the idea of this solution is we find if values in the arr can reach its sum/2
  * if so the the partition is found
- * we build the dp[][] from 1 to sum/2 and each transition case can either  pick the previous 
+ * we build the dp[][] from 1 to sum/2 and each transition case can either pick the previous 
  * number i-1 to see if the sum j is reached dp[i-1][j] is true or if we add the current number nums[i-1]
  * see if previous number with previous sum is true dp[i-1][j-nums[i]] either one of them is true
  * then the sum j is reached. until the end we will know if dp[nums.length][sum/2] can be found thru the dp[][]
