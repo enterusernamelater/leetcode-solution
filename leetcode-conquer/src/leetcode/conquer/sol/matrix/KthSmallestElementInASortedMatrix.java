@@ -12,12 +12,12 @@ package leetcode.conquer.sol.matrix;
  * if is greater we move up a row.
  * the traverse diagram looks like this:
  
-*   *   *   * | *
-*   *   * | *   *
-*   *   * | *   *
-*   * | *   *   *
-* | *   *   *   *
-*   *   *   *   *
+ *   *   *   * | *
+ *   *   * | *   *
+ *   *   * | *   *
+ *   * | *   *   *
+ * | *   *   *   *
+ *   *   *   *   *
 
  * Since is binary search Time Complexity close to O(nlog(n^2)), with constant space.
  */
