@@ -1,27 +1,10 @@
 package leetcode.conquer.main;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import leetcode.conquer.sol.dp.LongestPalindromicSubsequence;
+import leetcode.conquer.sol.stack.BasicCalculatorIII;
 
 public class Main {
 	public static void main(String[] args) {
-		//String start = "hit";
-		//String end = "cog";
-				
-		//List<String> str = new ArrayList<>(Arrays.asList("hot","dot","dog","lot","log","cog"));
-		//int[] arr = new int[5];
-		//Arrays.fill(arr, 1);
-		
-		//LongestPalindromicSubsequence sol = new LongestPalindromicSubsequence();
-		
-		//sol.longestPalindromeSubseq("bbbab");
-		
-		int a = (1 + 300) / 2 * 300;
-		int b = (1 + 300) * 300 /2;
-		System.out.println(a);
-		System.out.println(b);
+		BasicCalculatorIII sol = new BasicCalculatorIII();
+		sol.calculate("(( (   (  ( ((( (  (3  -  18 )+ 8 )  -20 )+   (((   3 +18)   / (1+5   )   ) +(  (  12 *  12   )  +  (15-  10  )))   )   *  ( (   (  (  20  +   6   ) +  (  19  - 8) )+(  (   19+ 5  )  +  (  13   -   13  )   )  )  /   (( (6 +20 )   +  (9  +  19 )  )   +  (( 11  -  12)   -(  1   +  2  ) ) )   ))  -(   (   (  (   (  4  +   18 )   + (   8 -   8   )) *  (   (17  / 19  )  + (   1*   18)  ) )   +  ( ( ( 13  +   1 )   +   (8 + 10   )   )   + 9   )   )   +   (  (  (  (  1  +15)   +   (  9/ 15   ) ) *   ((  13  - 4  ) + (  13   +  4 ) )) +(  ((16 *  20   )   /  (5   +10   )  )+ ( (  15 *   16 )  *  (  2 -  4)   ))   )  ))+ ((8+ ( (  9  *  (  (  2   +  10)  + (  5  *   13)) )  +  (   (  (   16 +  4 )   -(   10  + 9  )) +  (( 19+   3 )   -   (  2 -  15   ))  )  )   )  /  (  12  /  5) )   ) +   ( (((   ( 3 +(   (   7+19  )   *   (   15   +   1  ) ))  *(  ((   5  *   8  )   /  (3 +3  ))   +  (  (  8 +7)  +  (  17+14  ) )) ) +   (  10 +   (  ( ( 8 /13)+   (   6+17   )   )+((   16 *  3   )  - ( 9 /   11 )  )  ))  )   -(( ( ((3   +   2   )   /(1+9   )  ) *   (   ( 13  +   18 )+ (17  * 14   )) )   +( (  ( 18 +  8   )*   (  20* 7 )  )   /  14   ))+ ( ((   ( 1   -   2)+(19  +   14   )  )  -  (   (   10 *9   )  *   (   19*  11))   )   -   ((   (17  -  9   )   +(5   * 2   )  )+20))  ))+9  )  )   +18   ) * 19)");
 	}
 }
