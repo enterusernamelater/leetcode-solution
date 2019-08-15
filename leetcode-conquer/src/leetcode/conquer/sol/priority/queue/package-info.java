@@ -1,2 +1,2 @@
-//priority queue can sort vals in the queue thats the biggest difference compare to the queue
+//priority queue can sort vals in the queue and poll or offer based on the sorting properties set upfront
 package leetcode.conquer.sol.priority.queue;
