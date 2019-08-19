@@ -1,4 +1,4 @@
-package leetcode.conquer.sol.priority.queue;
+package leetcode.conquer.sol.queue.priority;
 
 import java.util.ArrayList;
 import java.util.HashMap;
