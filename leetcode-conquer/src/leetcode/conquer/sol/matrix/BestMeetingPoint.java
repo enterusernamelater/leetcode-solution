@@ -6,7 +6,7 @@ import java.util.List;
 /*
  * a very smart sol we first transform the 2d matrix into 1d because distance in x and y are independent
  * after that we adding all x and y values into an array
- * from observation we know that the minimal distance between two points are there difference between x and y
+ * from observation we know that the minimal distance between two points are their difference between x and y
  * so we loop through x and y arrays from both end and find the total differences 
  * the sum of the total difference on the x and y array is our result.
  * this link below explains this strategy very well 
