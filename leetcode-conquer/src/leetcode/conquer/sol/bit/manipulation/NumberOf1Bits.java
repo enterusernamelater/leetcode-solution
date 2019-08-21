@@ -19,4 +19,17 @@ public class NumberOf1Bits {
         }
         return sum;
     }
+    
+    // you need to treat n as an unsigned value
+    public int hammingWeightMySol(int n) {
+        int sum = 0;
+        System.out.println(n);
+        while (n != 0){
+        	//if and 1 gives one then the lsb is 1 we add sum
+        	sum += n&1;
+            //shifht to right, unsign shift
+            n>>>=1;
+        }
+        return sum;
+    }
 }

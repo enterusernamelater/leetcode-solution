@@ -12,7 +12,7 @@ package leetcode.conquer.sol.bit.manipulation;
  * so if to identical string xor each other, no mater what the order of the chars in the string is
  * xor will always produce zero.
  * therefore if we only have one different char in the array. 
- * when we xor the bot string the xor return will be the leftover char.
+ * when we xor the both string the xor return will be the leftover char.
  * 
  * Time O(n) Space O(1) 
  */
