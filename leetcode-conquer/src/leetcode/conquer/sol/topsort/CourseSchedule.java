@@ -1,4 +1,4 @@
-package leetcode.conquer.sol.recursion;
+package leetcode.conquer.sol.topsort;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  * a detailed explanation can be found in this link below:
  * https://www.youtube.com/watch?v=M6SBePBMznU
  * Time O(n) since we flip the visted node to viste(status 1)
- * Spce O(n) we need to store all the prerequisites
+ * Space O(n) we need to store all the prerequisites
  */
 public class CourseSchedule {
 	 public CourseSchedule() {}
