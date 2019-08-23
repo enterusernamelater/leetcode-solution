@@ -44,21 +44,22 @@ public class InsertDeleteGetRandomO1 {
 	}
 
 	/** Removes a value from the set. Returns true if the set contained the specified element. */
-	public boolean remove(int val) {
-		if(!map.containsKey(val)) return false;
-		//first swap the val with the last element in the arr
-		int tmp = list.get(list.size()-1);
-		int index = list.indexOf(val);
-		list.set(index,tmp);
-		list.set(list.size()-1,val);
+    public boolean remove(int val) {
+        if(!map.containsKey(val)) return false;
+        //first swap the val with the last element in the arr
+        int tmp = list.get(list.size()-1);
+        int index = map.get(val);
+        
+        list.set(index,tmp);
+        list.remove(list.size()-1);
+        
+        //update the last elem's index in map
+        map.put(tmp,index);
+        //remove the val in map and remove the last one in arr
+        map.remove(val);
 
-		//update the last elem's index in map
-		map.put(tmp,index);
-		//remove the val in map and remove the last one in arr
-		map.remove(val);
-		list.remove(list.size()-1);
-		return true;
-	}
+        return true;
+    }
 
 	/** Get a random element from the set. */
 	public int getRandom() {
