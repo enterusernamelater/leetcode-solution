@@ -6,7 +6,7 @@ import java.util.Random;
 
 
 /*
- * a better solution than mine because no workload in the constractor
+ * a better solution than mine because no workload in the constructor
  * when picking random, we loop through the given arr finding all the dups index and store them in the List
  * and return a random index from the list by using rand.nextInt(list.size())
  * Time O(n) Space O(N)
