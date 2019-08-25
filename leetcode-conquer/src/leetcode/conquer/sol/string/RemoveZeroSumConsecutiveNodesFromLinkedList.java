@@ -1,4 +1,4 @@
-package leetcode.conquer.sol.String;
+package leetcode.conquer.sol.string;
 
 import java.util.HashMap;
 import java.util.Map;
