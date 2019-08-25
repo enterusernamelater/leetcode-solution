@@ -30,7 +30,7 @@ public class AlienDictionary {
 		if(words == null || words.length == 0) return "";
 		int[] inCount = new int[26];
 		Map<Character, Set<Character>> map = new HashMap<>();
-
+		
 		for(String str : words){
 			for(char c : str.toCharArray()){
 				map.putIfAbsent(c,new HashSet<>());
