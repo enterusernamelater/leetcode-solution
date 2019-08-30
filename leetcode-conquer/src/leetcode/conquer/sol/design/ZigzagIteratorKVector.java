@@ -12,7 +12,7 @@ import java.util.Queue;
  * add back on will be placed on its last.
  * Time O(n) Space O(n)
  */
-public class ZigzagIteratorKVector {
+public class ZigzagIteratorKVector implements Iterator<Integer>{
 	public ZigzagIteratorKVector() {}
 	
     private Queue<Iterator<Integer>> q;
@@ -23,7 +23,7 @@ public class ZigzagIteratorKVector {
         if(!v2.isEmpty()) q.offer(v2.iterator());
     }
 
-    public int next() {
+    public Integer next() {
         Iterator<Integer> v = q.poll();
         int res = v.next();
         if(v.hasNext()) q.offer(v);

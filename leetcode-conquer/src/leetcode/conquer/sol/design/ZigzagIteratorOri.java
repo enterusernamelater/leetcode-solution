@@ -1,12 +1,13 @@
 package leetcode.conquer.sol.design;
 
+import java.util.Iterator;
 import java.util.List;
 
 /*
  * two index increment one at time on each arr until both reaches the end
  * Time o(N) space o(n)
  */
-public class ZigzagIteratorOri {
+public class ZigzagIteratorOri implements Iterator<Integer>{
     private List<Integer> v1;
     private List<Integer> v2;
     //i for v1 j for v2
@@ -16,7 +17,7 @@ public class ZigzagIteratorOri {
         this.v2 = v2;
     }
 
-    public int next() {
+    public Integer next() {
         if(i >= v1.size()) return v2.get(j++);
         if(j >= v2.size()) return v1.get(i++);
         if(i>j){
