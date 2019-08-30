@@ -20,6 +20,7 @@ public class CloneGraphBFS {
 	public Node cloneGraph(Node node) {
 		if(node == null) return node;
 
+		@SuppressWarnings("serial")
 		Map<Integer,Node> map = new HashMap<Integer,Node>(){{
 			put(node.val, new Node(node.val,new ArrayList<>()));
 		}};
