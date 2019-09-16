@@ -28,7 +28,8 @@ public class Main {
 //		sol.move("L");
 //		sol.move("D");
 		int a = 10;
-		System.out.println(~a);
+		String s = "abcd";
+		System.out.println(s.substring(1,4));
 		System.out.println(-a);
 	}
 }

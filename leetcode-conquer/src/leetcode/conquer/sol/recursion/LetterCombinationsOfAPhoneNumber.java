@@ -12,35 +12,44 @@ import java.util.Map;
  */
 public class LetterCombinationsOfAPhoneNumber {
 	public LetterCombinationsOfAPhoneNumber() {}
-    Map<String,String> map = new HashMap<String,String>(){
-		private static final long serialVersionUID = 1L;
-	{
-        put("2","abc");
-        put("3","def");
-        put("4","ghi");
-        put("5","jkl");
-        put("6","mno");
-        put("7","pqrs");
-        put("8","tuv");
-        put("9","wxyz");
-    }};
-    
-    List<String>  res = new ArrayList<>();
-    public List<String> letterCombinations(String digits) {
-        if(digits == null || digits.length() == 0) return res;
-        helper(digits,"");
+    private List<String> res;
+    private String s;
+    private Map<Character,String> map;
+    private int len;
+    public List<String> letterCombinations(String s) {
+        if(s == null || s.length() == 0) return new ArrayList<>();
+        this.s = s;
+        this.res = new ArrayList<>();
+        this.len = 0;
+        this.map = new HashMap<Character,String>(){{
+            put('2',"abc");
+            put('3',"def");
+            put('4',"ghi");
+            put('5',"jkl");
+            put('6',"mno");
+            put('7',"pqrs");
+            put('8',"tuv");
+            put('9',"wxyz");
+        }};
+        
+        for(int i=0;i<s.length();i++) if(s.charAt(i) != '1') len++;
+        helper("",0);
+        
         return res;
     }
     
-    private void helper(String s, String comb){
-        if(s == null || s.length()==0){
-            res.add(comb);
+    private void helper(String curr, int index){
+        if(curr.length() == len){
+            res.add(curr);
             return;
         }
         
-        String digitStr = map.get(s.substring(0,1));
-        for(char c : digitStr.toCharArray()){
-            helper(s.substring(1), comb+c);
+        for(int i=index;i<s.length();i++){
+            if(!map.containsKey(s.charAt(i)))continue;
+            String val = map.get(s.charAt(i));
+            for(int j=0; j<val.length(); j++){
+                helper(curr+val.charAt(j), i+1);
+            }
         }
     }
 }
