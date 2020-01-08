@@ -12,7 +12,25 @@ import java.util.Set;
 public class LongestSubstringWithoutRepeatingCharacters {
 	public LongestSubstringWithoutRepeatingCharacters() {}
 	
-    public int lengthOfLongestSubstring(String s) {
+	//this just keep res update with set's size instead calculating the size using two pointers. 
+    public int lengthOfLongestSubstringSolOne(String s) {
+        Set<Character> set = new HashSet<>();
+        
+        char[] arr = s.toCharArray();
+        int res = 0;
+        
+        int i=0;
+        for(int j=0; j<arr.length; j++){
+            res = Math.max(res,set.size());
+            while(i<arr.length && set.contains(arr[j])) set.remove(arr[i++]);
+            set.add(arr[j]);
+        }
+
+        
+        return Math.max(res,set.size());
+    }
+    
+    public int lengthOfLongestSubstringSolTwo(String s) {
         if(s == null || s.length() == 0) return 0;
         Set<Character> set = new HashSet<>();
         set.add(s.charAt(0));
