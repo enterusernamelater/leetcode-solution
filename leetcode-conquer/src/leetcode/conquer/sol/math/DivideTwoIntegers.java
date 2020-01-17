@@ -18,9 +18,13 @@ public class DivideTwoIntegers {
 		int a = Math.abs(dividend);
 		int b = Math.abs(divisor);
 		int res = 0;
-
+		
+		
+		//by doing a -b >= 0 by pass overflow
 		while(a-b >= 0){
 			int x =0;
+			
+			//same here doing a - (b<<x) >= 0 by pass overflow
 			while(a - (b<<x) >=0){
 				x++;
 			}
@@ -30,4 +34,28 @@ public class DivideTwoIntegers {
 
 		return (dividend>=0) == (divisor >=0)? res : -res;
 	}
+	
+    public int divideSolTwo(int dividend, int divisor) {
+        if(dividend == Integer.MIN_VALUE && divisor == -1) return Integer.MAX_VALUE;
+        if(dividend == Integer.MIN_VALUE && divisor == 1) return Integer.MIN_VALUE;
+        long divid = (long)dividend;
+        long div = (long)divisor;
+        
+        if(divid < 0) divid = -divid;
+        if(div < 0) div = -div;
+        
+        int res =0;
+        
+        while(divid >= div){
+            int shift = 0;
+            while(divid >= (div << shift) ){
+                shift++;
+            }
+            
+            res += 1<<(shift - 1);
+            divid -= div<<(shift - 1);
+        }
+        
+        return dividend >= 0 == divisor >= 0? res : -res; 
+    }
 }

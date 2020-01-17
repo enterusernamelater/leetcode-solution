@@ -29,7 +29,7 @@ public class Main {
 //		sol.move("D");
 		int a = 10;
 		String s = "abcd";
-		System.out.println(s.substring(1,4));
+		System.out.println(1<<1);
 		System.out.println(-a);
 	}
 }

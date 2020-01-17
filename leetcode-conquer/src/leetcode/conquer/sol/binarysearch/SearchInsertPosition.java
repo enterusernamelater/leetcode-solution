@@ -31,4 +31,23 @@ public class SearchInsertPosition {
         
         return l;
     }
+    
+    //same speed as above less code let result always land on the left index of the mid.
+    public int searchInsertSolTwo(int[] nums, int target) {
+        if(nums == null || nums.length == 0) return -1;
+        
+        int l = 0;
+        int r = nums.length -1;
+        
+        while(l<r){
+            int mid = (l+r) >> 1;
+            if(nums[mid] >= target){
+                r = mid;
+            }else{
+                l = mid + 1;
+            }
+        }
+        
+        return l == nums.length-1 && nums[l] < target? l+1 : l;
+    }
 }

@@ -23,6 +23,7 @@ public class MergeKSortedLists {
         ListNode dummy = new ListNode(0);
         ListNode tail = dummy;
         
+        //this alg below only works the given lists are sorted otherwise no guarantee the first pop is the smallest
         while(!q.isEmpty()){
             ListNode curr = q.poll();
             tail.next = new ListNode(curr.val);
@@ -30,6 +31,32 @@ public class MergeKSortedLists {
             
             if(curr.next != null) q.offer(curr.next);
         }
+        return dummy.next;
+    }
+    
+    //add everything into priorityQueue and pop them out. simple
+    public ListNode mergeKListsSolTwo(ListNode[] lists) {
+        if(lists == null || lists.length == 0){
+            return null;
+        }
+        
+        PriorityQueue<ListNode> queue = new PriorityQueue<>((a,b) -> a.val - b.val);
+        for(ListNode node : lists){
+            while(node != null){
+                queue.offer(node);
+                node = node.next;
+            }
+        }
+        
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+        
+        while(!queue.isEmpty()){
+            ListNode node = queue.poll();
+            curr.next = new ListNode(node.val);
+            curr = curr.next;
+        }
+        
         return dummy.next;
     }
 }
