@@ -33,4 +33,27 @@ public class CombinationSumIII {
             arr.remove(arr.size()-1);
         }
     }
+    
+    public List<List<Integer>> combinationSum3SolTwo(int k, int n) {
+        if(k == 0) return new ArrayList<>();
+        
+        helperSolTwo(k, n, 1, new ArrayList<>());
+        return res;
+    }
+    
+    private void helperSolTwo(int k, int n, int start, List<Integer> arr){
+        if(n==0 && k == 0){
+            res.add(new ArrayList<>(arr));
+            return;
+        }
+        
+        if(k < 0 || n < 0) return;
+        
+        for(int i=start;i<=9;i++){
+            arr.add(i);
+            helper(k-1,n-i,i+1, arr);
+            arr.remove(arr.size()-1);
+        }
+        
+    }
 }

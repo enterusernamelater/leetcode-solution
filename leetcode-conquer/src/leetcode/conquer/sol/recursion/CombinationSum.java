@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class CombinationSum {
 	public CombinationSum() {}
-    List<List<Integer>> res = new ArrayList<>();
+	private List<List<Integer>> res = new ArrayList<>();
     public List<List<Integer>> combinationSum(int[] nums, int target) {
         if(nums == null || nums.length == 0 || target == 0) return new ArrayList<>();
         Arrays.sort(nums);
@@ -20,7 +20,7 @@ public class CombinationSum {
         return res;
     }
     
-    void helper(int[] nums, int target, int start, List<Integer> arr){
+    private void helper(int[] nums, int target, int start, List<Integer> arr){
         if(target == 0){
             res.add(new ArrayList<>(arr));
             return;
@@ -31,6 +31,29 @@ public class CombinationSum {
         for(int i=start;i<nums.length && target >= nums[i];i++){
             arr.add(nums[i]);
             helper(nums,target-nums[i],i,arr);
+            arr.remove(arr.size()-1);
+        }
+    }
+    
+    public List<List<Integer>> combinationSumTwo(int[] nums, int target) {
+        if(nums == null || nums.length == 0) return new ArrayList<>();
+        helperTwo(nums,target,new ArrayList<>(),0, 0);
+        return res;
+    }
+    
+    //the index param here prevents duplicate result, repeating char results can only happen once
+    //eg, 2,2,3 but cant have 2,3,2, once 3 is reached recursion cannot go back to retrieve 2.
+    private void helperTwo(int[] nums, int target, List<Integer> arr, int curr, int index){
+        if(curr == target){
+            res.add(new ArrayList<>(arr));
+            return;
+        }
+        
+        if(curr>target) return;
+        
+        for(int i=index;i<nums.length;i++){
+            arr.add(nums[i]);
+            helperTwo(nums,target,arr,curr+nums[i],i);
             arr.remove(arr.size()-1);
         }
     }

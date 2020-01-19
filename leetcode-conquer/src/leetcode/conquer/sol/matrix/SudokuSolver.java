@@ -38,8 +38,8 @@ public class SudokuSolver {
 		}
 
 		for(int i=1;i<=9;i++){
-			if(canPlace(i, row, col)){
-				char val = (char)(i + '0');
+			char val = (char)(i + '0');
+			if(canPlace(val, row, col)){
 				board[row][col] = val;
 				if(helper(row,col+1)) return true;
 				board[row][col] = skip;
@@ -48,26 +48,26 @@ public class SudokuSolver {
 
 		return false;
 	}
-
-	private boolean canPlace(int val, int row, int col){
-		for(int i=0;i<9;i++){
-			if(board[row][i] != skip && board[row][i] - '0' == val) return false;
-		}
-
-		for(int i=0;i<9;i++){
-			if(board[i][col] != skip && board[i][col] - '0' == val) return false;
-		}
-
-		//determine which box in a 3x3 matrix that has 3x3 box
-		int rowb = (row/3 + 1)*3;
-		int colb = (col/3 + 1)*3;
-
-		for(int i=rowb-1; i>=rowb-3; i--){
-			for(int j=colb-1; j>=colb-3; j--){
-				if(board[i][j] != skip && board[i][j] - '0' == val) return false;
-			}
-		}
-
-		return true;
-	}
+	
+    private boolean canPlace(char val, int row, int col){
+        //validate row
+        for(int i=0;i<board.length;i++)
+            if(board[i][col] == val) return false;
+        
+        //validate col
+        for(int i=0; i<board[0].length;i++)
+            if(board[row][i] == val) return false;
+        
+        //validate box
+        int rowb = row/3;
+        int colb = col/3;
+        
+        for(int i=rowb*3; i<rowb*3+3;i++){
+            for(int j=colb*3; j<colb*3+3; j++){
+                if(board[i][j] == val) return false;
+            }
+        }
+        
+        return true;
+    }
 }
