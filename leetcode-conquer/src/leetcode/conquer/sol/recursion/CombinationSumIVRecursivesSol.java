@@ -30,6 +30,9 @@ public class CombinationSumIVRecursivesSol{
             if(target>=nums[i])
             count+=helper(nums,target-nums[i],arr);
         }
+        
+        //its very possible that we have no solution if so the target count will be 0 thats why
+        //its very important to initialize the array with -1 otherwise result of 0 will not be returned.
         return arr[target] = count;
     }
 }
