@@ -1,7 +1,7 @@
 package leetcode.conquer.sol.matrix;
 
 /*
- * rotate diagonally and then rotate vertically 
+ * rotate vertically then rotate diagonally 
  * detailed explanation here:
  * https://www.youtube.com/watch?v=qko3FDWDKcQ
  * Time O(h*w) Space constant
@@ -10,25 +10,39 @@ public class RotateImage {
 	public RotateImage() {}
 
 	public void rotate(int[][] matrix) {
-		if(matrix.length == 0) return;
+		if(matrix == null || matrix.length == 0) return;
+		int n = matrix[0].length;
+		int m = matrix.length;
 
-		int h = matrix.length;
-		int w = matrix[0].length;
+		int l = 0;
+		int r = m - 1;
 
-		for(int i=0; i<h; i++){
-			for(int j=i+1; j<w; j++){
-				int tmp = matrix[i][j];
-				matrix[i][j] = matrix[j][i];
-				matrix[j][i] = tmp;
+		//swap top and bottom
+		while(l<r){
+			for(int j=0;j<n;j++){
+				swapTopBottom(l,r,j,matrix);
 			}
+			l++;
+			r--;
 		}
 
-		for(int i=0; i<h; i++){
-			for(int j=0; j<w/2; j++){
-				int tmp = matrix[i][j];
-				matrix[i][j] = matrix[i][w-1-j];
-				matrix[i][w-1-j] = tmp;
+		//swap diagonally
+		for(int i=0; i<n; i++){
+			for(int j=i;j<n;j++){
+				swapDiag(j,j,i,matrix);
 			}
 		}
+	}
+
+	private void swapDiag(int l, int r, int i, int[][] matrix){
+		int tmp = matrix[i][l];
+		matrix[i][l] = matrix[r][i];
+		matrix[r][i] = tmp;
+	}
+
+	private void swapTopBottom(int l, int r, int i, int[][] matrix){
+		int tmp = matrix[l][i];
+		matrix[l][i] = matrix[r][i];
+		matrix[r][i] = tmp;
 	}
 }
