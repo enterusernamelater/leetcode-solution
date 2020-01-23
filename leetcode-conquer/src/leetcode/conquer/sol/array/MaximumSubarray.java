@@ -15,9 +15,10 @@ public class MaximumSubarray {
         int max = nums[0];
         
         for(int i = 1; i<nums.length; i++){
-            if(sum + nums[i] < nums[i]){
+            if(sum < 0){
             	//when this if is hit current sum can be ignored as nums[i] is for sure bigger than the current sum
             	//so the current sum is definitely not the max sum, also mean sum here is a negative
+            	//sum + nums[i] < nums[i] simpifies to sum < 0
                 sum = nums[i];
             }else{
                 sum+=nums[i];
