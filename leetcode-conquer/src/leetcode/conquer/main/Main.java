@@ -1,5 +1,6 @@
 package leetcode.conquer.main;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -46,5 +47,9 @@ public class Main {
         // print the value 
         System.out.println("Are both set equal? "
                            + value); 
+        
+        int[][] arr = new int[][] {{1,2},{3,4}};
+        Arrays.sort(arr, (a,b) -> a[0]-b[0]);
+        
     } 
 }
