@@ -1,43 +1,36 @@
 package leetcode.conquer.sol.recursion;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /*
- * Slow but works.lol
- * same as finding all permutation 
- * time o(n*n!), space o(k*n)
+ * simple permutation solution
+ * Time O(n!) Space O(n)
  */
 public class PermutationSequenceMySol {
-    List<List<Integer>> res = new ArrayList<>();
+    private boolean[] used;
+    private int n;
+    private int k;
+    
     public String getPermutation(int n, int k) {
-        List<Integer> arr = new ArrayList<>();
-        boolean[] bool = new boolean[n];
-        for(int i=1;i<=n;i++)
-            arr.add(i);
-        
-        helper(arr,bool,new ArrayList<>(),k);
-        
-        arr = res.get(k-1);
-        StringBuilder sb = new StringBuilder("");
-        for(Integer i : arr)       
-            sb.append(String.valueOf(i));
-        
-        return sb.toString();
+        this.used = new boolean[n+1];
+        this.n = n;
+        this.k = k;
+        return helper("");
     }
     
-    void helper(List<Integer> nums, boolean[] bool, List<Integer> arr, int k){
-        if(res.size() == k) return;
-        if(arr.size() == nums.size()){
-            res.add(new ArrayList<>(arr));
-            return;
+    private String helper(String curr){
+        if(curr.length() == n){
+            if(k == 1) return curr;
+            k--;
+            return "";
         }
-        for(int i = 0;i<nums.size();i++){
-            if(bool[i] == true) continue;
-            arr.add(nums.get(i)); bool[i] = true;
-            helper(nums,bool,arr,k);
-            arr.remove(arr.size()-1); bool[i] = false;
+        
+        for(int i=1;i<=n; i++){
+            if(used[i]) continue;
+            used[i] = true;
+            String val = helper(curr+i);
+            if(val.length() > 0) return val;
+            used[i] = false;
         }
+        
+        return "";
     }
-
 }
