@@ -7,55 +7,50 @@ import java.util.Arrays;
  * this is a same sol as NQueens 1
  * just dont build the res array
  * this time is o(n!)
- * space o(n*n) for worst case
+ * space o(n) for worst case
  */
 public class NQueensII {
-	
+
 	public NQueensII() {}
-	
-    private char[][] board;
-    private boolean[] col;
-    private boolean[] diag1;
-    private boolean[] diag2;
-    private int n;
-    private int res; 
-    
-    public int totalNQueens(int n) {
-        this.board = new char[n][n];
-        for(int i=0;i<n;i++)
-            Arrays.fill(board[i],'.');
-        
-        this.col = new boolean[n];
-        this.diag1 = new boolean[2*n-1];
-        this.diag2 = new boolean[2*n-1];
-        this.n = n;
-        
-        helper(0);
-        return res;
-    }
-    
-    private void helper(int y){
-        if(y==n){
-            res++;
-            return;
-        }
-        
-        for(int x=0;x<n;x++){
-            if(!isAvaliable(x,y)) continue;
-            updateBoard(x,y,true);
-            helper(y+1);
-            updateBoard(x,y,false);
-        }
-    }
-    
-    private boolean isAvaliable(int x, int y){
-        return !col[x] && !diag1[x+y] && !diag2[x-y+n-1];
-    }
-    
-    private void updateBoard(int x, int y, boolean bool){
-        col[x] = bool;
-        diag1[x+y] = bool;
-        diag2[x-y+n-1] = bool;
-        board[x][y] = bool? 'Q' : '.';
-    }
+
+	private int res = 0;
+	private boolean[] col;
+	private boolean[] diagl;
+	private boolean[] diagr;
+	private int n;
+
+	public int totalNQueens(int n) {
+		if(n == 0) return res;
+		this.col = new boolean[n];
+		this.diagl = new boolean[2*n-1];
+		this.diagr = new boolean[2*n-1];
+		this.n = n;
+
+		helper(0);
+		return res;
+	}
+
+	private void helper(int i){
+		if(i==n){
+			res++;
+			return;
+		}
+
+		for(int j=0; j<n; j++){
+			if(notAvailable(i,j)) continue;
+			update(i,j,true);
+			helper(i+1);
+			update(i,j,false);
+		}
+	}
+
+	private boolean notAvailable(int i, int j){
+		return col[j] || diagl[i+j] || diagr[n-1+j-i];
+	}
+
+	private void update(int i, int j, boolean isUsed){
+		col[j] = isUsed;
+		diagl[i+j] = isUsed;
+		diagr[n-1+j-i] = isUsed;
+	}
 }

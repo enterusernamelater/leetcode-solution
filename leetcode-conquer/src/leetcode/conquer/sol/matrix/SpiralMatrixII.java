@@ -40,4 +40,36 @@ public class SpiralMatrixII {
 
 		return m;
 	}
+	
+	/*
+	 * same approach to the first one just switch the arr.add with equals.
+	 */
+    public int[][] generateMatrixMySol(int n) {
+        int[][] m = new int[n][n];
+        
+        int top = 0;
+        int bottom = n-1;
+        int left =0;
+        int right = n-1;
+        int c = 1;
+        
+        while(top <= bottom && left <= right){
+            for(int i=left;i<=right;i++)
+                m[top][i] = c++;
+            
+            for(int i=top+1;i<=bottom;i++)
+                m[i][right] = c++;
+            
+            if(left == right || top == bottom) return m;
+            
+            for(int i=right-1;i>=left;i--)
+                m[bottom][i] = c++;
+            
+            for(int i=bottom-1; i>top; i--)
+                m[i][left] = c++;
+            
+            left++; right--; top++; bottom--;
+        }
+        return m;
+    }
 }
