@@ -41,4 +41,23 @@ public class Subsets {
             arr.remove(arr.size()-1);
         }
     }
+    
+    private int[] nums;
+    //my combination solution
+    public List<List<Integer>> subsetsMySol(int[] nums) {
+        if(nums == null || nums.length == 0) return new ArrayList<>();
+        this.nums = nums;
+        helper(0,new ArrayList<>());
+        return res;
+    }
+    
+    private void helper(int index, List<Integer> arr){
+        res.add(new ArrayList<>(arr));
+        
+        for(int i=index;i<nums.length;i++){
+            arr.add(nums[i]);
+            helper(i+1,arr);
+            arr.remove(arr.size()-1);
+        }
+    }
 }
