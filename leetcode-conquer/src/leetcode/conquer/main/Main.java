@@ -1,3 +1,4 @@
+
 package leetcode.conquer.main;
 
 import java.util.Arrays;
@@ -43,13 +44,10 @@ public class Main {
         // comparing first Set to another 
         // using equals() method 
         boolean value = arrset1.equals(arrset2); 
-  
+        String s = "/home///array/";
+        Arrays.stream(s.split("/")).forEach(i -> System.out.println(i));
         // print the value 
-        System.out.println("Are both set equal? "
-                           + value); 
-        
-        int[][] arr = new int[][] {{1,2},{3,4}};
-        Arrays.sort(arr, (a,b) -> a[0]-b[0]);
+       
         
     } 
 }

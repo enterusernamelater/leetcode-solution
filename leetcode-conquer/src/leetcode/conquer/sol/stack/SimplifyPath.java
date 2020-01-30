@@ -11,33 +11,31 @@ import java.util.Deque;
  * Time O(n) Space O(n)
  */
 public class SimplifyPath {
-	
-    private final static String SLASH = "/";
-    private final static String DOT =".";
-    private final static String DOUBLE_DOT = "..";
     
 	public SimplifyPath() {}
     
     public String simplifyPath(String path) {
         if(path == null || path.length() == 0) return path;
-        String[] arr = path.split(SLASH);
-        
+        String[] strArr = path.split("/");
+        String dot = ".";
+        String doubleDot = "..";
+        String slash = "/";
         Deque<String> stack = new ArrayDeque<>();
         
-        for(String s : arr){
-            if(DOUBLE_DOT.equals(s)){
+        for(String s : strArr){
+            if(s.equals(doubleDot)){
                 if(!stack.isEmpty()) stack.pop();
-            }else if(!DOT.equals(s) && s.length()>0){
+            }else if(s.length()>0 && !dot.equals(s)){
                 stack.push(s);
-            }   
+            }
         }
-        if(stack.isEmpty()) return SLASH;
         
-        String res = "";
+        StringBuilder sb = new StringBuilder();
         while(!stack.isEmpty()){
-            res = SLASH + stack.pop() + res;
+            sb.insert(0,stack.pop());
+            sb.insert(0,slash);
         }
         
-        return res;
+        return sb.length() == 0? slash : sb.toString();
     }
 }

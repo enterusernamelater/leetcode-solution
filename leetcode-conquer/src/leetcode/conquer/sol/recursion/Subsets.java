@@ -43,7 +43,7 @@ public class Subsets {
     }
     
     private int[] nums;
-    //my combination solution
+    //my combination solution O(2^n)
     public List<List<Integer>> subsetsMySol(int[] nums) {
         if(nums == null || nums.length == 0) return new ArrayList<>();
         this.nums = nums;
