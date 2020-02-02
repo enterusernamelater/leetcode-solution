@@ -18,7 +18,7 @@ public class BinaryTreeVerticalOrderTraversal {
 	public BinaryTreeVerticalOrderTraversal() {}
 	
     List<List<Integer>> res = new ArrayList<>();
-    TreeMap<Integer,List<Integer>> treeMap = new TreeMap<>();
+    TreeMap<Integer,List<Integer>> treeMap = new TreeMap<>((a,b) -> a-b);
     int max =0;
     int min = 0;
     public List<List<Integer>> verticalOrder(TreeNode root) {

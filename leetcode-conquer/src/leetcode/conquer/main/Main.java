@@ -1,9 +1,10 @@
 
 package leetcode.conquer.main;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.PriorityQueue;
+import java.util.TreeMap;
 
 /*
 ["SnakeGame","move","move","move","move","move","move","move","move","move","move","move","move","move","move","move","move","move","move","move"]
@@ -12,42 +13,54 @@ import java.util.Set;
 public class Main {
 	public static void main(String[] argv) 
     { 
-  
-        // Creating object of Set 
-        Set<String> arrset1 = new HashSet<String>(); 
-  
-        // Populating arrset1 
-        arrset1.add("A"); 
-        arrset1.add("B"); 
-        arrset1.add("C"); 
-        arrset1.add("D"); 
-        arrset1.add("E"); 
-  
-        // print arrset1 
-        System.out.println("First Set: "
-                           + arrset1); 
-  
-        // Creating another object of Set 
-        Set<String> arrset2 = new HashSet<String>(); 
-  
-        // Populating arrset2
-        arrset2.add("E"); 
-        arrset2.add("B"); 
-        arrset2.add("A"); 
-        arrset2.add("C"); 
-        arrset2.add("D"); 
-  
-        // print arrset2 
-        System.out.println("Second Set: "
-                           + arrset2); 
-  
-        // comparing first Set to another 
-        // using equals() method 
-        boolean value = arrset1.equals(arrset2); 
-        String s = "/home///array/";
-        Arrays.stream(s.split("/")).forEach(i -> System.out.println(i));
-        // print the value 
+
        
-        
+        int[] mat = new int[] {3,3,3,3,5,5,5,2,2,7};
+        Main sol = new Main();
+        sol.minSetSize(mat);
     } 
+	
+    public int[] kWeakestRows(int[][] mat, int k) {
+        int m = mat.length;
+        int n = mat[0].length;
+        
+        PriorityQueue<int[]> q = new PriorityQueue<>((a,b)->a[1]==b[1]? a[0] - b[0] : a[1] - b[1]);
+        for(int i=0;i<m;i++){
+            int count = 0;
+            for(int j=0;j<n;j++){
+                if(mat[i][j] == 0){
+                    break;
+                }
+                count++;
+            }
+            count++;
+            q.offer(new int[]{i,count});
+        }
+        
+        int[] res = new int[k];
+        for(int i=0;i<k;i++){
+            res[i] = q.poll()[0];
+        }
+        
+        return res;
+    }
+    
+    public int minSetSize(int[] arr) {
+        if(arr == null || arr.length == 0) return 0;
+        int n = arr.length;
+        TreeMap<Integer,Integer> map = new TreeMap<>((a,b) -> b-a);
+        
+        for(int val : arr) map.put(val,map.getOrDefault(val,0)+1);
+        
+        int res = 1;
+        int count = 0;
+        for(Map.Entry<Integer,Integer> entry : map.entrySet()){
+            count+=entry.getValue();
+            if(count*2 < n) res++;
+            else
+                break;
+        }
+            
+        return res;
+    }
 }
