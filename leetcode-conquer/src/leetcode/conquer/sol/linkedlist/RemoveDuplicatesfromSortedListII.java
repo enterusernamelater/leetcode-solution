@@ -21,17 +21,19 @@ public class RemoveDuplicatesfromSortedListII {
     public ListNode deleteDuplicates(ListNode head) {
         if(head == null || head.next == null) return head;
         ListNode root = new ListNode(0);
+        //initialize the root by pointing .next of the root to the head so now they are linked. (another reference)
+        root.next = head;
         ListNode p1 = root;
         while(head != null){
             if(head.next!=null && head.val == head.next.val){
                 head.next=head.next.next;
-                //head.next == null for speical cases like 1,1,1,1 
+                //head.next == null for special cases like 1,1,1,1 
                 if(head.next == null || head.val != head.next.val){
                     head = head.next;
+                    p1.next = head;
                 }
             }else{
-                p1.next = new ListNode(head.val);
-                p1 = p1.next;
+                p1 = head;
                 head = head.next;
             }
         }
