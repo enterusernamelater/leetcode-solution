@@ -11,6 +11,39 @@ import leetcode.conquer.list.ListNode;
 public class ReverseLinkedList {
 	public ReverseLinkedList() {}
 	
+    public ListNode reverseListRecursiveSol(ListNode head) {
+        if(head == null || head.next == null) return head;
+        ListNode root = new ListNode(0);
+        helper(head,root);
+        return root.next;
+    }
+    
+    private ListNode helper(ListNode head,ListNode root){
+        if(head.next == null) {
+            root.next = head;
+            return head;
+        }
+        ListNode node = helper(head.next,root);
+        node.next = head;
+        head.next = null;
+        return node = node.next;
+    }
+	
+    public ListNode reverseListMySol(ListNode head) {
+        if(head == null || head.next == null) return head;
+        
+        ListNode cur = head;
+        ListNode prev = new ListNode(0);
+        
+        while(cur != null){
+            ListNode tmp = cur.next;
+            cur.next = prev.next;
+            prev.next = cur;
+            cur = tmp;
+        }
+        return prev.next;
+    }
+	
     public ListNode reverseList(ListNode head) {
         ListNode prev = null;
         ListNode cur = head;

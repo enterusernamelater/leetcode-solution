@@ -11,6 +11,23 @@ import leetcode.conquer.list.ListNode;
 public class SwapNodesInPairs {
 	public  SwapNodesInPairs() {}
 	
+    public ListNode swapPairsMySol(ListNode head) {
+        if(head == null || head.next == null) return head;
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prev = dummy;
+        while(head != null && head.next != null){            
+            prev.next = head.next;
+            head.next = prev.next.next;
+            prev.next.next = head;
+            
+            prev = head;
+            head = head.next;
+        }
+        
+        return dummy.next;
+    }
+    
 	public ListNode swapPairs(ListNode head) {
         ListNode dummy = new ListNode(0);
         ListNode res = dummy;
