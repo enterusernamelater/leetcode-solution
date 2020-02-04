@@ -18,6 +18,44 @@ package leetcode.conquer.sol.dp;
 public class DecodeWays {
 	public DecodeWays() {}
 
+	/*
+	 * I first thought about using recursion to solve this problem but turns out the sample size is way too big. so ended up using dp 
+	 * the solution is pretty simple. we start at the second char. if the second char is valid we take dp[i-1] as the total combination for taking only
+	 * the second char. if the first and second chars both valid we take dp[i-2] as the total combination for taking both the first and second chars
+	 * in order for the second char to be valid the second char cannot be 0
+	 * in order for the first and second char to be valid the first char cant be 0 and both chars val cannot exceed 26
+	 * Time O(N)
+	 * Space O(N)
+	 * 
+	 * also attached the recursion solution although it will time out
+	 */
+    public int numDecodingsMySol(String s) {
+        if(s == null || s.length() == 0 || s.charAt(0) == '0') return 0;
+		int[] dp = new int[s.length() + 1];
+		dp[0] = 1;
+		dp[1] = 1;
+		for(int i=2;i<=s.length();i++){
+			char first = s.charAt(i-2);
+			char second = s.charAt(i-1);
+			String strVal = first - '0' > 0? new String(new char[]{first,second}) : "0";
+			Integer val = Integer.valueOf(strVal);
+			
+			int firstVal = second - '0' > 0? dp[i-1] : 0;
+			int secondVal = val > 0 && val <=26? dp[i-2] : 0;
+			dp[i] = firstVal + secondVal;
+		}
+		
+		return dp[s.length()];
+    }
+    
+	private int res = 0;
+	//NOTE: this solution will timeout but just as a reference
+    public int numDecodingsRecursive(String s) {
+        if(s == null || s.length() == 0) return 0;
+		helper(s,0);
+		return res;
+    }
+    
 	public int numDecodings(String s) {
 		int[] dp = new int[s.length()+1];
 		dp[0] = 1;
@@ -37,5 +75,28 @@ public class DecodeWays {
 		}
 
 		return dp[s.length()];
+	}
+	
+	private void helper(String s, int index){
+		if(index >= s.length()){
+			res++;
+			return;
+		}
+		
+		if(s.charAt(index) == '0') return;
+		
+		int i = index+1;
+		int val = Integer.valueOf(s.substring(index,i));
+		if(val > 0 && val <= 26){
+				helper(s,i);
+		}
+		
+		i = index+2;
+		if(i<=s.length()){
+			val = Integer.valueOf(s.substring(index,i));
+			if(val > 0 && val <= 26){
+					helper(s,i);
+			}
+		}
 	}
 }

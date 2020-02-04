@@ -1,16 +1,36 @@
+
 package leetcode.conquer.sol.tree;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /*
- * this solution referring to link: 
- * https://www.youtube.com/watch?v=ZAq5BoTes8o
- * for every i from 1...n we have a function which determines how many unique bst possible
- * G(n) = G(0) * G(n-1) + G(1) * G(n-2) + … + G(n-1) * G(0) 
- * time o(n^2) space O(n)
- * the detailed explanation on how the formula is formed is through this link
- * https://www.youtube.com/watch?v=GgP75HAvrlY
+ * This question is a recursive question
+ * The idea is to use each number i as root node, 
+ * Then the left branch will be what's less than i, 
+ * The right branch will be what's larger than i. 
+ * The total number of distinct structure is their product. 
+ * Thus, sum up the product for all numbers. Use a map to memorize the visited number.
  */
 public class UniqueBinarySearchTrees {
 	public UniqueBinarySearchTrees() {}
+	
+    public int numTreesRecursive(int n) {
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0,1);// empty bst counts as 1
+        map.put(1,1);//single node bst counts as 1;
+        return helper(map,n);
+    }
+    
+    private int helper(Map<Integer,Integer> map, int n){
+        if(map.containsKey(n)) return map.get(n);
+        int sum = 0;
+        for(int i=1;i<=n;i++){
+            sum+=helper(map,i-1) * helper(map,n-i);
+        }
+        map.put(n,sum);
+        return sum;
+    }
 	
     public int numTrees(int n) {
         int[] arr = new int[n+1];
