@@ -15,7 +15,8 @@ import java.util.TreeMap;
 public class Main {
 	public static void main(String[] argv) 
     { 
-
+		int j=0;
+		System.out.println(++j);
        
         int[] mat = new int[] {3,3,3,3,5,5,5,2,2,7};
         Main sol = new Main();

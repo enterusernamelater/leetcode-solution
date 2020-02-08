@@ -20,7 +20,14 @@ public class LargestRectangleInHistogramSolTwo {
 		  while (i < n) {
 		    // as long as the current bar is shorter than the last one in the stack
 		    // we keep popping out the stack and calculate the area based on
-		    // the popped bar
+		    // the popped bar, the condition h[i] < h[s.peek() always applies
+			// throughout the while loop, only ones thats bigger the the current i will be
+			// popped from the stack, if the last one is reached in the stack and the last one 
+			// is greater than i, we give the total length to i-0 as the last one in the stack
+			// is the min val in interval 0 to i (exclusive) and the i will start a new interval
+			// and i starts as the new min
+			// the current stack val allow to pop, which is greater than current i is garrented that
+			// all values in between the about to pop val to the i index exclusive are greater or equal to val i.
 		    while (!s.isEmpty() && h[i] < h[s.peek()]) {
 		      // tricky part is how to handle the index of the left bound
 		      max = Math.max(max, h[s.pop()] * (i - (s.isEmpty() ? 0 : s.peek() + 1)));
