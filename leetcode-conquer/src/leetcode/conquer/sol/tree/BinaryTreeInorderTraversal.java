@@ -55,7 +55,7 @@ public class BinaryTreeInorderTraversal {
 	}
 
 	//recursion
-	private void helper(TreeNode root){
+	public void helper(TreeNode root){
 		if(root == null) return;
 		helper(root.left);
 		res.add(root.val);

@@ -27,7 +27,7 @@ public class PopulatingNextRightPointersInEachNode {
         return root;
     }
     
-    private void helperMySol(Node root){
+    public void helperMySol(Node root){
         if(root == null) return;
         if(root.left != null && root.right != null){
             root.left.next = root.right;

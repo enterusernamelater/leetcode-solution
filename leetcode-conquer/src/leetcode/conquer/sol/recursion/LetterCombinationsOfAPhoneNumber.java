@@ -12,7 +12,9 @@ import java.util.Map;
  */
 public class LetterCombinationsOfAPhoneNumber {
 	public LetterCombinationsOfAPhoneNumber() {}
-	private Map<Character,String> map = new HashMap<Character,String>(){{
+	private Map<Character,String> map = new HashMap<Character,String>(){
+	private static final long serialVersionUID = -8976016962327720248L;
+	{
 		put('2',"abc");
 		put('3',"def");
 		put('4',"ghi");

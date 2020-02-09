@@ -13,7 +13,9 @@ import java.util.Map;
  * Space O(n)
  */
 public class TweetCountsPerFrequency {
-    private Map<String,Integer> feqs = new HashMap<String,Integer>(){{
+    private Map<String,Integer> feqs = new HashMap<String,Integer>(){
+		private static final long serialVersionUID = 4425424236998851844L;
+	{
         put("day",86400);
         put("hour",3600);
         put("minute",60);

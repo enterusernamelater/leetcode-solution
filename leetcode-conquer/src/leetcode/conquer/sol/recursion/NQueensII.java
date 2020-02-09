@@ -1,7 +1,5 @@
 package leetcode.conquer.sol.recursion;
 
-import java.util.Arrays;
-
 /*
  * DFS
  * this is a same sol as NQueens 1

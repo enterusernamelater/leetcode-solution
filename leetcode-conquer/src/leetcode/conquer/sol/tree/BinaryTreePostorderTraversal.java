@@ -58,7 +58,7 @@ public class BinaryTreePostorderTraversal {
         return res;
     }
     
-    private void helper(TreeNode root){
+    public void helper(TreeNode root){
         if(root == null) return;
         
         helper(root.left);
