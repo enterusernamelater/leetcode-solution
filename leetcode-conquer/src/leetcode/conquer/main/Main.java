@@ -1,9 +1,17 @@
 
 package leetcode.conquer.main;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /*
-["SnakeGame","move","move","move","move","move","move","move","move","move","move","move","move","move","move","move","move","move","move","move"]
-[[3,3,[[0,1],[0,2],[1,2],[2,2],[2,1],[2,0],[1,0]]],["R"],["R"],["D"],["D"],["L"],["L"],["U"],["U"],["R"],["R"],["D"],["D"],["L"],["L"],["U"],["R"],["U"],["L"],["D"]]
+ * a class where I test my shit :)
  */
-public class Main {}
+public class Main {
+	public static void main(String[] args) {
+		List<Integer> arr = new ArrayList<>();
+		Collections.sort(arr, (a,b) -> a-b);
+	}
+}
 
