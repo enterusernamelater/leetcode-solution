@@ -12,6 +12,8 @@ public class Node {
     public List<Node> neighbors;
 
     public Node() {}
+    
+    public Node(int _val){this.val = _val;}
 
     public Node(int _val,List<Node> _neighbors) {
         val = _val;
