@@ -11,6 +11,7 @@ import leetcode.conquer.tree.TreeNode;
  *to do so we use a list, and in each root we form root's left and right by for loop on the return left and right
  *list. this is basically a combination of results you can form by connecting left and right list on root
  *left and right cannot swap place as its enforced by the bst property
+ *
  *Time o(2^n)
  *Space o(2^n)
  *
