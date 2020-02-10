@@ -7,6 +7,7 @@ import java.util.Deque;
  * this solution uses stack to reduce the time complexity from O(n^2) in sol one to O(n)
  * space o(n)
  * detailed explanation in link below:
+ * logic very similar to best time to buy stock
  * https://www.youtube.com/watch?v=KkJrGxuQtYo
  */
 public class LargestRectangleInHistogramSolTwo {

@@ -44,4 +44,50 @@ public class PopulatingNextRightPointersInEachNodeII {
         if(nextRoot.right != null) return nextRoot.right;
         return getNext(nextRoot.next);
     }
+    
+    /*
+     * level order traverse, left to right
+     */
+    public Node connectMySol(Node root) {
+    	helperMySol(root);
+        return root;
+    }
+    
+    private void helperMySol(Node node){
+        if(node == null || (node.left == null && node.right == null)) return;
+        
+        if(node.left != null && node.right != null){
+            node.left.next = node.right;
+        }
+        
+        Node top = node.next;
+        Node bottom = node.right != null? node.right : node.left;
+
+        while(top != null && bottom != null){
+            Node topl = top.left;
+            Node topr = top.right;
+
+            if(topl != null && bottom == topl){
+                if(topr != null){
+                    bottom.next = topr;
+                    bottom = bottom.next;
+                }
+                top = top.next;
+            }else if(topr!= null && bottom == topr){
+                top = top.next;
+            }else if(topl != null){
+                bottom.next = topl;
+                bottom = bottom.next;
+            }else if(topr != null){
+                bottom.next = topr;
+                bottom = bottom.next;
+                top = top.next;
+            }else{
+                top = top.next;
+            }
+        }
+        helper(node.left);
+        helper(node.right);
+        
+    }
 }
