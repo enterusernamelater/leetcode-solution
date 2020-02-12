@@ -12,6 +12,9 @@ public class Main {
 	public static void main(String[] args) {
 		List<Integer> arr = new ArrayList<>();
 		Collections.sort(arr, (a,b) -> a-b);
+		
+		char c = '0';
+		System.out.println(Character.toLowerCase(c));
 	}
 }
 
