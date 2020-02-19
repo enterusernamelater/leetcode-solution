@@ -5,11 +5,11 @@ import java.util.List;
 
 
 /*
- * calculating the products of the num each time the num is added to the previous products
+ * calculating the products of the num added to the previous products
  * if the result of the previous product is 0 we remove the product from the arr
  * Note there will only be one product of 0 in the array and its as if a num 0 is added in 
  * any other product 0 resulting from multiplication with the num will be removed right at the spot
- * Time on add the worst case is O(n) meaning no 0 products happened, get product is alwasy O(1)
+ * Time on add the worst case is O(n) meaning no 0 products happened, get product is always O(1)
  * Space O(n) 
  */
 public class ProductOfTheLastKNumbers {

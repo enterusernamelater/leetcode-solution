@@ -66,6 +66,7 @@ public class WordLadderII {
 							parents.add(word);
 							mapParent.put(newWord,parents);
 							found=true;
+							//mapStep.get(newWord) > step this ensures that we only add parents of the new word with in the same level of the bfs traverse
 						}else if(mapStep.containsKey(newWord) && mapStep.get(newWord) > step){
 							parents.add(word);
 							mapParent.put(newWord, parents);
