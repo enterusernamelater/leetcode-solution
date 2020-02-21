@@ -6,31 +6,39 @@ import java.util.Map;
 import leetcode.conquer.tree.Node;
 
 /*
- * this solution is from the leetcode solution that requires
- * a soild fundtion of memeory referencing and deep and shallow copy
- * we first deep copy all next node. while deep copying them we store them nodes in a hashmap with the old node val as the key
- * so when we reversing back to rebuild the deep copy list, the random node can be found by the hashmap.
- * also if the random node's next/random is null, dont worry because the random node's next/random will be build by the recursion
- * because of the references build through recursion.
+ * use the original node's memory location as the key
+ * loop through the linkedlist copy each node and point the copy's next to another copy of original's next
+ * both copy and the copy next will be added to the map. so when we move to the next original node
+ * the next original node is already in the map as we created it from the copy of the previous.
+ * exception for the beginning we need to create both
+ * once all nodes are linked, back track to point the random node of the copy by get on the map's original node's random's memory location
+ * by this time all original node's memory location will have its copy and stored in the map.
+ * 
+ * Time O(N)
+ * Space o(N)
+ *
  * Time O(n) Space O(n)
  */
 public class CopyListWithRandomPointer {
-	private Map<Integer, Node> map = new HashMap<>();
-
-	public Node copyRandomList(Node head) {
-		if(head == null) return null;
-
-		//this is for the random pointers
-		if(map.containsKey(head.val)){
-			return map.get(head.val);
-		}
-
-		Node node = new Node(head.val,null,null);
-		map.put(head.val,node);
-
-		node.next = copyRandomList(head.next);
-		node.random = copyRandomList(head.random);
-
-		return node;
-	}
+	
+    public Node copyRandomList(Node head) {
+        //the key is the original node's memory location
+        Map<Node,Node> map = new HashMap<>();
+        helper(head, map);
+        return map.get(head);
+    }
+    
+    private void helper(Node head, Map<Node,Node> map){
+        if(head == null) return;
+        
+        Node node1 = map.getOrDefault(head, new Node(head.val));
+        Node node2 = head.next == null? null : new Node(head.next.val);
+        node1.next = node2;
+        map.putIfAbsent(head,node1);
+        map.put(head.next,node2);
+        
+        helper(head.next,map);
+        node1.random = map.get(head.random);
+        
+    }
 }

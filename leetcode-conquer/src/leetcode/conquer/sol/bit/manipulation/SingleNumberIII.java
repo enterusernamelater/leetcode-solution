@@ -27,7 +27,10 @@ public class SingleNumberIII {
         int[] res = new int[2];
         for(int num : nums){
             if((num & x) == 0){
-                res[1] ^=num;
+                res[1] ^=num; 
+                // all other non a ,b numbers will result to 0 because of the xor, 
+                //only ones left are the number of the 1 bit different 
+                //and the number that is different from the 1 bit different, in this case num & x is 0
             }else{
                 res[0] ^= num;
             }
