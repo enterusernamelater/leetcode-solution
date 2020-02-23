@@ -14,6 +14,34 @@ public class LinkedListCycleII {
 	
 	public LinkedListCycleII() {}
 	
+	/*
+	 * a o(n) solution with constant space. what we do is first find where walker and runner meet
+	 * and then one pointer starts from the begining and another pointer starts from where they meet
+	 * traverse one at a time, where they meet is the starting point of the cycle
+	 * if no cycle found return null
+	 */
+    public ListNode detectCycleMySol(ListNode head) {
+        ListNode savefirst = head;
+        ListNode first = head;
+        ListNode second = head;
+        
+        while(second != null && second.next != null){
+            first = first.next;
+            second = second.next.next;
+            if(first == second) break;
+        }
+        
+        if(second == null || second.next == null) return null;
+        
+        first = savefirst;
+        while(first != second){
+            first = first.next;
+            second = second.next; 
+        }
+        
+        return first;
+    }
+    
 	public ListNode detectCycle(ListNode head) {
 		ListNode runner = head;
 		ListNode walker = head;
