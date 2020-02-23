@@ -18,9 +18,9 @@ public class Main {
 		boolean[] used = new boolean[] {};
 		char c = '0';
 		System.out.println(Character.toLowerCase(c));
-		String abc = "abc";
+		String abc = " a b c ";
 		String abd = "abd";
-		
-		System.out.println(1^2^1^3^2^5 ^6);
+
+		System.out.println(abc.trim());
 	}
 }
