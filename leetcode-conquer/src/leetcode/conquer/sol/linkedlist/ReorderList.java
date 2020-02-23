@@ -57,12 +57,13 @@ public class ReorderList {
             first = first.next;
             second = second.next.next;
         }
-        
         ListNode mid = first;
+        first = first.next;
+        //cuts off from the mid for later merge
+        mid.next = null;
+        
         //reverse after mid
         ListNode pre = new ListNode(0);
-        first = first.next;
-      
         while(first != null){
             ListNode save = first.next;
             first.next = pre.next;
@@ -80,7 +81,5 @@ public class ReorderList {
             first = second.next;
             second = save;
         }
-        //finally cuts off the mid
-         mid.next = null;
     }
 }
