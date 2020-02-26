@@ -1,10 +1,12 @@
 package leetcode.conquer.sol.binarysearch;
 
 /*
- * This is a leetcode sol, we fist save the mid to the r if mid > mid +1
- * then let l incrementing until we reach the ans. 
- * during l increments if another mid is found where mid > mid +1 we move r =mid to 
- * save the new mid and keep letting l increment.
+ * after finding mid, check if mid is on a increasing slope. if so we make the mid a new beginning l = mid +1
+ * exclude mid because we already know mid+1 is greater than mid on this increasing slope, when its on a increasing slope
+ * we know there will be a peak in front
+ * when mid is greater than mid +1 we know mid is on a decreasing slope therefore we make a new end on r=mid. we cannot
+ * exclude mid as mid can be a peak
+ * when mid is at a decreasing slope we know there is a peak behind mid, or the peak can be mid itself
  * Time O(log(n)) space O(1)
  */
 public class FindPeakElement {
