@@ -4,7 +4,8 @@ package leetcode.conquer.sol.math;
  * this question is similar to dividing a string integer
  * but we need to handle a special case that we cant allow n/=26 to expand
  * when we have landed a 'z' character
- * one rotation handles 26 rotates, but when n=26, 26/26=1 which treats letter 'z' as an expansion
+ * 26 rotates can happen on a single index before expansion, but when n=26, 26/26=1 which treats letter 'z' the last rotate of the 26
+ * as an expansion
  * this is an extra expansion we dont need so we take out from our leftover expansion to compute 'n/=26' 
  * when our mode is 0;
  * Time O(N)
