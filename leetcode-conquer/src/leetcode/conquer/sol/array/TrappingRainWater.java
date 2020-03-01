@@ -19,7 +19,7 @@ public class TrappingRainWater {
         int rmax = 0;
         int res = 0;
         while(l<r){
-            //this if ensures we have a closure on either side. 
+            //this if ensures we have a closure on the other side. 
             if(height[l]<height[r]){
                 lmax = Math.max(lmax,height[l]);
                 //if is smaller than lmax we know now we have a bucket. 
@@ -27,6 +27,8 @@ public class TrappingRainWater {
                 //result will not update because lmax-lmax = 0;
                 //as the if statement height[l]<height[r] we will for sure have a closure of heihgt[r]
                 //so finding the difference between lmax-height[l] is always safe for index l; 
+                //note that the r bar will always be the maxium height in this interval until a larger l bar is found then
+                //this process switches.
                 res +=(lmax-height[l]);
                 l++;
             }else{

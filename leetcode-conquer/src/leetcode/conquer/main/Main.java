@@ -21,6 +21,6 @@ public class Main {
 		String abc = " a b c ";
 		String abd = "abd";
 
-		System.out.println(abc.trim());
+		System.out.println(0<<0);
 	}
 }
