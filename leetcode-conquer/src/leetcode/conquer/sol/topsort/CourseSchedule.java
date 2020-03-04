@@ -1,7 +1,9 @@
 package leetcode.conquer.sol.topsort;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /*
  * the idea of this solution is based on finding the circle of the course
@@ -14,10 +16,13 @@ import java.util.List;
  * https://www.youtube.com/watch?v=M6SBePBMznU
  * Time O(n) since we flip the visted node to viste(status 1)
  * Space O(n) we need to store all the prerequisites
+ * 
+ * this solution can also be done through a hash map solution attached
  */
 public class CourseSchedule {
 	 public CourseSchedule() {}
 	 
+	 //since course number given are 0 to n-1 we call use arr index as a map key, need to initialize
 	 public boolean canFinish(int numCourses, int[][] prerequisites) {
 	        List<List<Integer>> table = new ArrayList<>();
 	        for(int i=0; i<numCourses;i++){
@@ -49,5 +54,35 @@ public class CourseSchedule {
 	        
 	        v[course] = 1;
 	        return false; 
+	    }
+	    
+	    public boolean canFinishMySol(int numCourses, int[][] prerequisites) {
+	        boolean[] visit = new boolean[numCourses];
+	        boolean[] visited = new boolean[numCourses];
+	        Map<Integer,List<Integer>> map = new HashMap<>();
+	        for(int[] pair : prerequisites){
+	            List<Integer> list = map.getOrDefault(pair[0],new ArrayList<>());
+	            list.add(pair[1]);
+	            map.putIfAbsent(pair[0],list);
+	        }
+	        
+	        for(int i=0;i<numCourses;i++){
+	            if(!helper(visit, visited, map,i)) return false;
+	        }
+	        return true;
+	    }
+	    
+	    private boolean helper(boolean[] visit, boolean[] visited, Map<Integer,List<Integer>> map, int curr){
+	        if(visit[curr]) return false;
+	        if(visited[curr]) return true;
+	        
+	        visit[curr] = true;
+	        List<Integer> list = map.getOrDefault(curr, new ArrayList<>());
+	        for(int val : list){
+	            if(!helper(visit,visited,map,val)) return false;
+	        }
+	        visit[curr] = false;
+	        visited[curr] = true;
+	        return true;
 	    }
 }
