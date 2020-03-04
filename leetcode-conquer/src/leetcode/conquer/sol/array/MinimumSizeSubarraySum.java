@@ -26,6 +26,7 @@ public class MinimumSizeSubarraySum {
                 sum-=nums[i++];
             }
         }
+
         return res == Integer.MAX_VALUE? 0 : res;
     }
 }
