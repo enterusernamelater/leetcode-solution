@@ -49,4 +49,37 @@ public class CourseScheduleII {
 		v[course] = 1;
 		return false;
 	}
+	
+	//instead of using a fancy primitive int[] I used an arraylist and convert to primitive after
+    public int[] findOrderMySol(int n, int[][] prerequisites) {
+        int[] v = new int[n]; // 1 is visiting, 2 is visited
+        List<List<Integer>> list = new ArrayList<>();
+        for(int i=0;i<n;i++) list.add(new ArrayList<>());
+
+        for(int[] pair : prerequisites){
+            List<Integer> val = list.get(pair[0]);
+            val.add(pair[1]);
+        }
+        
+        List<Integer> res = new ArrayList<>();
+        for(int i=0;i<n;i++){
+            if(!helper(i,res,list,v)) return new int[0];
+        }
+        
+        return res.stream().mapToInt(Integer::intValue).toArray();
+    }
+    
+    private boolean helper(int curr, List<Integer> res,  List<List<Integer>> list, int[] v){
+        if(v[curr] == 1) return false;
+        if(v[curr] == 2) return true;
+        
+        v[curr] = 1; // visiting
+        List<Integer> arr = list.get(curr);
+        for(int val : arr){
+            if(!helper(val,res,list,v)) return false;
+        }
+        res.add(curr);
+        v[curr] = 2;
+        return true;
+    }
 }

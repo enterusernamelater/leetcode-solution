@@ -1,5 +1,8 @@
 package leetcode.conquer.sol.array;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * two pointer i j forms sliding window when sum is greater than s we drop the last in the silding window 
  * see if the sum still greater. while keeping track of the min size.
@@ -23,7 +26,6 @@ public class MinimumSizeSubarraySum {
                 sum-=nums[i++];
             }
         }
-        
         return res == Integer.MAX_VALUE? 0 : res;
     }
 }
