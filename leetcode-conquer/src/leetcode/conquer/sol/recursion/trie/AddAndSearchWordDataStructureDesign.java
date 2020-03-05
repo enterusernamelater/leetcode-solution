@@ -31,7 +31,29 @@ public class AddAndSearchWordDataStructureDesign {
 	    }
 	    
 	    /** Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter. */
+	    //my solution is faster as I dont use substring :) :)
 	    public boolean search(String word) {
+	        return helper(word, root, 0);
+	    }
+	    
+	    private boolean helper(String word, TrieNode root, int i){
+	        if(i == word.length() && root.isEnd()) return true;
+	        if(i == word.length()) return false;
+	        
+	        char c = word.charAt(i);
+	        if(c == '.'){
+	            for(TrieNode node : root.getList()){
+	                if(node == null) continue;
+	                if(helper(word,node,i+1)) return true;
+	            }
+	            return false;
+	        }else{
+	           TrieNode node = root.get(c);
+	           return node != null && helper(word,node,i+1);
+	        }
+	    }
+	    
+	    public boolean searchSolTwo(String word) {
 	        TrieNode node = root;
 	        return searchRecursive(word, node);
 	    }

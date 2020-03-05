@@ -10,11 +10,14 @@ package leetcode.conquer.sol.recursion.trie;
  * the complexity here is for the worst case which is the insertion
  * however when comes to search and search prefix the time is o(n)
  * and the space is o(1)
+ * 
+ * super educational link to understand Trie:
+ * https://www.youtube.com/watch?v=AXjmTQ8LEoI
  */
-public class Trie {
+public class ImplementTrie {
 	private TrieNode root;
 	/** Initialize your data structure here. */
-	public Trie() {
+	public ImplementTrie() {
 		root = new TrieNode();
 	}
 

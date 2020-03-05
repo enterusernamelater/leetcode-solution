@@ -1,11 +1,9 @@
-package leetcode.conquer.sol.recursion;
+package leetcode.conquer.sol.recursion.trie;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import leetcode.conquer.sol.recursion.trie.Trie;
 
 /*
  * very similar solution follow by the word search one solution
@@ -23,7 +21,7 @@ public class WordSearchII {
         this.w = board[0].length;
         this.h = board.length;
 
-        Trie trie = new Trie();
+        ImplementTrie trie = new ImplementTrie();
         
         for(String w : words)
             trie.insert(w);
@@ -35,13 +33,20 @@ public class WordSearchII {
         return new ArrayList<>(res);
     }
     
-    private void helper(int i, int j, Trie trie, char[][] board, String str){
+    private void helper(int i, int j, ImplementTrie trie, char[][] board, String str){
         if(i==h || i<0 || j==w || j<0 || board[i][j] =='$') return;
         
         str += board[i][j];
         if(!trie.startsWith(str)) return;
         
         if(trie.search(str)) res.add(str);
+        /*
+         * this is super important and I always forget about this
+         * we backtracking through board make sure mark off the visiting ones 
+         * so we dont end up stack overflow
+         * also once visiting ones are done traversing return the original val back
+         * to the board for the next traverse
+         */
         char tmp = board[i][j];
         board[i][j]  = '$';
         helper(i+1,j,trie,board,str);

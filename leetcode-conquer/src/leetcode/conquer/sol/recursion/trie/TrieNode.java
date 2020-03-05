@@ -22,6 +22,10 @@ public class TrieNode {
 		return links[c-'a'];
 	}
 	
+    public TrieNode[] getList(){
+        return this.links;
+    }
+	
 	public TrieNode getIndex(int i){
 		return links[i];
 	}
