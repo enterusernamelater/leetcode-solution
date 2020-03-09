@@ -16,39 +16,39 @@ import java.util.Deque;
 public class BasicCalculator {
 	public BasicCalculator() {}
 
-	public int calculate(String s) {
-        if(s == null || s.length() == 0) return 0;
-        int sign = 1;
-        int result = 0;
+	//use long to protect overflow
+    public int calculate(String s) {
+        long sign = 1;
+        long number = 0;
+        long result  = 0;
+        Deque<Long> stack = new ArrayDeque<>();
         char[] arr = s.toCharArray();
-        int number = 0;
-        
-        Deque<Integer> stack = new ArrayDeque<>();
         for(char c : arr){
             if(Character.isDigit(c)){
-                number = number*10 + (int)(c-'0');
-            }else if(c == '+'){
-                result+=sign*number;
-                sign = 1;
-                number = 0;
+                number = number*10 + c-'0';
             }else if(c == '-'){
-                result+=sign*number;
-                sign = -1;
+                result+= sign*number;
+                sign =-1;
+                number = 0;
+            }else if(c == '+'){
+                result +=sign*number;
+                sign=1;
                 number = 0;
             }else if(c == '('){
                 stack.push(result);
                 stack.push(sign);
-                result = 0;
                 number = 0;
+                result = 0;
                 sign = 1;
             }else if(c == ')'){
-                result +=sign*number;
-                result = stack.pop()*result;
+                result += sign*number;
+                result *= stack.pop();
                 result = stack.pop() + result;
+                sign = 1;
                 number = 0;
             }
         }
-        if(number != 0) result += sign*number;
-        return result;
+        
+        return Long.valueOf(result+=sign*number).intValue();
     }
 }
