@@ -14,38 +14,46 @@ import java.util.Deque;
 public class BasicCalculatorII {
 	public BasicCalculatorII() {}
 	
-	public int calculate(String s) {
-        if(s == null || s.length() ==0) return 0;
-        Deque<Integer> stack = new ArrayDeque<>();
-        int number = 0;
+	//using long protecting over flow
+    public int calculate(String s) {
+        long number = 0;
         char sign = '+';
-        for(int i=0;i<s.length();i++){
-            char c = s.charAt(i);
+        Deque<Long> stack = new ArrayDeque<>();
+        char[] arr = s.toCharArray();
+        
+        for(char c : arr){
+            if(c == ' ') continue;
             if(Character.isDigit(c)){
-                number = number*10 +(int)(c-'0');
-            }
-            
-            if(i+1 == s.length() || c != ' ' && !Character.isDigit(c)){
-                if(sign =='+'){
-                    stack.push(number);
-                    number = 0;
-                }else if(sign == '-'){
-                    stack.push(-number);
-                    number = 0;
-                }else if(sign =='/'){
-                    stack.push(stack.pop()/number);
-                    number = 0;
-                }else if(sign == '*'){
-                    stack.push(stack.pop()*number);
-                    number = 0;
-                }
-                
+                number = number*10 + c-'0';
+            }else if(sign == '+'){
+                stack.push(number);
+                number = 0;
                 sign = c;
-             }
+            }else if(sign == '-'){
+                stack.push(-number);
+                number = 0;
+                sign = c;
+            }else if(sign == '*'){
+                stack.push(stack.pop() * number);
+                number = 0;
+                sign = c;
+            }else if(sign == '/'){
+                stack.push(stack.pop() / number);
+                number = 0;
+                sign = c;
+            }
         }
         
-        int res = 0;
+        if(number != 0){
+            if(sign == '+') stack.push(number);
+            else if(sign == '-') stack.push(-number);
+            else if(sign == '*') stack.push(stack.pop() * number);
+            else if(sign == '/') stack.push(stack.pop() / number);
+        }
+        
+        Long res = 0l;
         while(!stack.isEmpty()) res+=stack.pop();
-        return res;
+        
+        return res.intValue();
     }
 }
