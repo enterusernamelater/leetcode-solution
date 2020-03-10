@@ -3,36 +3,32 @@ package leetcode.conquer.sol.tree;
 import leetcode.conquer.tree.TreeNode;
 
 /*
- * the Kth smallest element is the kth smallest number you can find in the BST from bottom to top
- * in a sorted way
- * this concept is similar to the kth smallest number in an array, if the array is sorted the kth smallest element
- * is the Array[k-1]
- * the approache to this question is a simple in order traverse with a count decrement, when we have count equals to 0
- * we return the result as the final result due to the BST property where the left node is smaller than the root and the right
- * node is greater than the root, this property is consistent throughout all subtrees in the BST.
+ * this solution is basically a bst property in order traverse from small to large while doing so returning
+ * the  position of current node, if the position == k we found the node and return the value all the way up
+ * in the recursion
+ * Time O(n) most worst case
+ * Space constant
  */
 public class KthSmallestElementinaBST {
-	
-    int count = 0;
-    int res = Integer.MAX_VALUE;
     
     public KthSmallestElementinaBST() {}
     
+    private Integer res = null;
     public int kthSmallest(TreeNode root, int k) {
-        count = k;
-        helper(root);
-        return res;
+        return helper(root,k,0);
     }
     
-    void helper(TreeNode root){
-        if(root == null) return;
-        helper(root.left);
-        count--;
-        if(count == 0){
-            res = root.val;
-            return;
-        }
-        helper(root.right);
+    //the int curr here is for pass down the next position when reaching the right node. 
+    private int helper(TreeNode root, int k, int curr){
+        if(root == null) return curr;
+        
+        int val =  helper(root.left,k,curr) + 1;
+        
+        if(res != null) return res;
+        else if(val == k) res = root.val;
+        
+        val = helper(root.right, k, val);
+        
+        return val;
     }
-
 }
