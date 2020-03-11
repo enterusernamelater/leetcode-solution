@@ -4,23 +4,15 @@
 
 package leetcode.conquer.main;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import leetcode.conquer.sol.heap.TheSkylineProblem;
 
 /*
  * a class where I test my shit :)
  */
 public class Main {
 	public static void main(String[] args) {
-		List<Integer> arr = new ArrayList<>();
-		Collections.sort(arr, (a,b) -> a-b);
-		boolean[] used = new boolean[] {};
-		char c = '0';
-		System.out.println(Character.toLowerCase(c));
-		String abc = " a b c ";
-		String abd = "abd";
-
-		System.out.println(0<<0);
+		TheSkylineProblem sol = new TheSkylineProblem();
+		int[][] buildings = new int[][] {{0,2,3},{2,5,3}};
+		sol.getSkyline(buildings);
 	}
 }
