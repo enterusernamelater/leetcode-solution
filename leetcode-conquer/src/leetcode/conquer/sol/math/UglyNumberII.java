@@ -28,6 +28,9 @@ public class UglyNumberII {
             int num2 = arr.get(i2)*3;
             int num3 = arr.get(i3)*5;
             int minNum = Math.min(num1,Math.min(num2,num3));
+            //when minNum equals more than a number for example:
+            //minNum equals to num1 and num2 both indexes are incremented.
+            //so we will not have duplicates in the list
             if(minNum == num1) i1++;
             if(minNum == num2) i2++;
             if(minNum == num3) i3++;

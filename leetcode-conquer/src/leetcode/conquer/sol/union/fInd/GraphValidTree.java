@@ -3,8 +3,8 @@ package leetcode.conquer.sol.union.fInd;
 import java.util.Arrays;
 
 /*
- * this is the a union find alg first we any x and y into a set where x is the index and y is the val
- * we starting the x indexes has val of -1
+ * this is the a union find alg first we add x and y into a set where x is the index and y is the val
+ * we starting the x indexes with val of -1
  * then we look at each edges both sides val and check if any edge val happens to be in the same set 
  * to do this we find the edge val by looking for the end of the merge set to add 
  * if passing in both edge val into the merge set returns the same end, we know they are in the same set return false
