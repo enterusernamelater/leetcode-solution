@@ -18,4 +18,17 @@ public class MissingNumber {
         
         return xor^i;
     }
+    
+    /*
+     * 首项加末项乘以讲述除以二 得到本该有的总和 在于nums的总和相减就得到的了答案
+     * Time O(n)
+     * Space constant
+     */
+    public int missingNumberMathSol(int[] nums) {
+        int sum = 0;
+        int max = nums.length;
+        for(int val : nums) sum+=val;
+
+        return (max*(max+1))/2 - sum;
+    }
 }
