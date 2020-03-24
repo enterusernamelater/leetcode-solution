@@ -24,7 +24,7 @@ public class Main {
 		int[][] v = new int[0][0];
 		List<int[]> list = new ArrayList<>(Arrays.asList(v));
 		int[] arr = new int[0];
-		
-		List<Integer> list3 = Arrays.stream(arr).boxed().collect(Collectors.toList());
+		String[] strs = new String[] {"a","b","c","d"};
+		List<String> list3 = Arrays.stream(strs).collect(Collectors.toList());
 	}
 }

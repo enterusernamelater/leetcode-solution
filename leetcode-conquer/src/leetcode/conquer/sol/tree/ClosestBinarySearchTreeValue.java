@@ -5,6 +5,7 @@ import leetcode.conquer.tree.TreeNode;
 /*
  * This is an easy question, using a preorder traverse and keep track the min diff 
  * using Math.abs. once the new min diff is find, update the result int
+ * or using in order traverse, because in order traverse actually sorts the binary search tree
  * Time o(n), space o(h)
  */
 public class ClosestBinarySearchTreeValue {
