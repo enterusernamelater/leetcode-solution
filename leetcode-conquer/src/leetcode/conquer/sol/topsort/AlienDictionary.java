@@ -78,6 +78,7 @@ public class AlienDictionary {
                 //special case handle
                 //the sort order expects that when all the letters between two words (first and second) match until one of the word is out of bound, the out of bound word should be the first not the second. 
                 //(think about sort is ascending and shorter goes first)
+                //so when this special case is detected, we clear the map and return the build graph so the bfs later will return empty string.
                 if(j+1 == len && first.length > second.length){
                     map.clear();
                     return;
