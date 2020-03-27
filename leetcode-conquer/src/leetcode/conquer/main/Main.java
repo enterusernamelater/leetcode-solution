@@ -6,8 +6,10 @@ package leetcode.conquer.main;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import leetcode.conquer.sol.heap.TheSkylineProblem;
@@ -26,5 +28,6 @@ public class Main {
 		int[] arr = new int[0];
 		String[] strs = new String[] {"a","b","c","d"};
 		List<String> list3 = Arrays.stream(strs).collect(Collectors.toList());
+		Set<String> set = new HashSet<>(list3);
 	}
 }
