@@ -4,30 +4,25 @@
 
 package leetcode.conquer.main;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import leetcode.conquer.sol.heap.TheSkylineProblem;
+import leetcode.conquer.sol.design.UndergroundSystem;
 
 /*
  * a class where I test my shit :)
  */
 public class Main {
 	public static void main(String[] args) {
-		TheSkylineProblem sol = new TheSkylineProblem();
-		int[][] buildings = new int[][] {{0,2,3},{2,5,3}};
-		sol.getSkyline(buildings);
-		Iterator<int[]> i;
-		int[][] v = new int[0][0];
-		List<int[]> list = new ArrayList<>(Arrays.asList(v));
-		int[] arr = new int[0];
-		String[] strs = new String[] {"a","b","c","d"};
-		List<String> list3 = Arrays.stream(strs).collect(Collectors.toList());
-		Set<String> set = new HashSet<>(list3);
+		UndergroundSystem undergroundSystem = new UndergroundSystem();
+		undergroundSystem.checkIn(45, "Leyton", 3);
+		undergroundSystem.checkIn(32, "Paradise", 8);
+		undergroundSystem.checkIn(27, "Leyton", 10);
+		undergroundSystem.checkOut(45, "Waterloo", 15);
+		undergroundSystem.checkOut(27, "Waterloo", 20);
+		undergroundSystem.checkOut(32, "Cambridge", 22);
+		undergroundSystem.getAverageTime("Paradise", "Cambridge");       // return 14.0. There was only one travel from "Paradise" (at time 8) to "Cambridge" (at time 22)
+		undergroundSystem.getAverageTime("Leyton", "Waterloo");          // return 11.0. There were two travels from "Leyton" to "Waterloo", a customer with id=45 from time=3 to time=15 and a customer with id=27 from time=10 to time=20. So the average time is ( (15-3) + (20-10) ) / 2 = 11.0
+		undergroundSystem.checkIn(10, "Leyton", 24);
+		undergroundSystem.getAverageTime("Leyton", "Waterloo");          // return 11.0
+		undergroundSystem.checkOut(10, "Waterloo", 38);
+		undergroundSystem.getAverageTime("Leyton", "Waterloo"); 
 	}
 }

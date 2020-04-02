@@ -21,11 +21,20 @@ public class PaintFence {
 	        if(n == 1)
 	            return k;
 	        
-	        int same = k;
-	        int diff = k*(k-1);
+	        int same = k; //k*1 same in first two posts
+	        int diff = k*(k-1); // different in first two posts
 	        
 	        for(int i=3;i<=n;i++){
 	            int tmp = diff;
+	            /*
+	             * when calculating different colors between current post and previous post
+	             * the same color dp val can be diff by times k-1
+	             * the diff color dp val can also be diff by times k-1
+	             * when calculating same colors dp val between current post and previous post
+	             * only when to do this is by making the diff dp val the same which means apply the same color
+	             * so the diff dp val comes the same 
+	             * the above dp logic continues.
+	             */
 	            diff = (same+diff)*(k-1);
 	            same = tmp;
 	        }
