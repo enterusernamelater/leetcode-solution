@@ -38,7 +38,11 @@ public class ExpressionAddOperators {
             
             helper(num,target,exp+"+"+intVal,index+i,cur+intVal,intVal);
             helper(num,target,exp+"-"+intVal,index+i,cur-intVal,-intVal);
-            helper(num,target,exp+"*"+intVal,index+i,cur-prev+prev*intVal,prev*intVal);   
+            /*
+             * during multiplication we times the previous but also minus the previous from the total beacause the previous
+             * is now used in the multiplication the previous calculation no longer valid.
+             */
+            helper(num,target,exp+"*"+intVal,index+i,cur-prev+prev*intVal,prev*intVal);  
         }
     }
 }
