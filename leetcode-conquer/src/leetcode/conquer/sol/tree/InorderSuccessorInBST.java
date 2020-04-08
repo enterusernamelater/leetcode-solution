@@ -3,8 +3,9 @@ package leetcode.conquer.sol.tree;
 import leetcode.conquer.tree.TreeNode;
 
 /*
- * a very simple solution, in order traverse + always looking for the min value
- * if the node val is greater than the p.val
+ * in order traverse is how to sort bst. so once a root.val is greater than p found we return the root
+ * Time O(n)
+ * Space constant
  */
 public class InorderSuccessorInBST {
     TreeNode res = null;
@@ -12,18 +13,13 @@ public class InorderSuccessorInBST {
     public InorderSuccessorInBST() {}
     
     public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
-        helper(root,p);
-        return res;
-    }
-    
-    void helper(TreeNode root, TreeNode p){
-        if(root == null) return;
+        if(root == null) return null;
         
-        helper(root.left,p);
-        
-        if(root.val>p.val) 
-            res = res == null? root : res.val > root.val? root : res;
-        
-        helper(root.right,p);
+        TreeNode left = inorderSuccessor(root.left,p);
+        if(left != null) return left;
+        if(root.val > p.val) return root;
+        TreeNode right = inorderSuccessor(root.right,p);
+        if(right != null) return right;
+        return null;
     }
 }

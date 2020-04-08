@@ -10,7 +10,7 @@ import java.util.Iterator;
  */
 public class PeekingIterator implements Iterator<Integer>{
     private Iterator<Integer> iterator;
-    private Integer peek;
+    private Integer peek; //to answer the follow up question this can be an object to support generic
 	public PeekingIterator(Iterator<Integer> iterator) {
 	    // initialize any member here.
         this.iterator = iterator;

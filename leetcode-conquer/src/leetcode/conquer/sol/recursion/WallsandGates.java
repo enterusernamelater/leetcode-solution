@@ -25,6 +25,8 @@ public class WallsandGates {
     private void helper(int[][] rooms, int i, int j, int h, int w, int cur){
     	//base case, when setting base case make sure that the backtrack returns to the original state.
         if(i>=h || i<0 || j>=w || j<0 || rooms[i][j] < cur) return;
+        //the trick here is rooms[i][j] < cur meaning if the curr distance reaching this room 
+        //is greater than the distance already recorded on the room we return
         rooms[i][j]=cur;
         helper(rooms,i+1,j,h,w,cur+1);
         helper(rooms,i-1,j,h,w,cur+1);
