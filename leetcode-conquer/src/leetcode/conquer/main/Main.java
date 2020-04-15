@@ -25,5 +25,7 @@ public class Main {
 		undergroundSystem.checkOut(10, "Waterloo", 38);
 		undergroundSystem.getAverageTime("Leyton", "Waterloo"); 
 		
+		char a = 'a';
+		char b = 'b';
 	}
 }

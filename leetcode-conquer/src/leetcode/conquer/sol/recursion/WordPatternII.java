@@ -48,4 +48,51 @@ public class WordPatternII {
 
 		return false;
 	}
+
+	/*
+	 * This is my solution basically using the same approach from word pattern I when detecting word pattern matching
+	 * backtracking solution finding out each substring mataches the current pattern, if is continue, if not backtrack
+	 * with an additional backtracking starting point for handling special cases.
+	 */
+	private Map<Character,String> map1 = new HashMap<>();
+	private Map<String,Character> map2 = new HashMap<>();
+	private char[] p;
+	public boolean wordPatternMatchMySol(String pattern, String str) {
+		this.p = pattern.toCharArray();
+		return helper(0,0,str);
+	}
+
+	private boolean helper(int pi, int si,String str){
+		if(pi == p.length && si == str.length()) return true;
+		if(pi == p.length) return false;
+		if(si == str.length()) return false;
+		/*
+		 * this is a speical backtracking entry for handling a special case when a pattern has already been stored
+		 * from the previous
+		 * we need to reset the previous pattern if the current pattern fails
+		 * try this as a special case: p: aa, str: aaaaa
+		 * without this special backtracking entry point the above test case will return true
+		 * but the answer is false because there is no pattern matching on above test cases.
+		 */
+		if(map1.containsKey(p[pi])){
+			String word = map1.get(p[pi]);
+			if(!str.startsWith(word,si)) return false;
+
+			return helper(pi+1,si+word.length(),str);
+		}
+		for(int i=1;i<=str.length()-si;i++){
+			String word = str.substring(si,si+i);
+
+			if(map1.containsKey(p[pi]) && !map1.get(p[pi]).equals(word)) continue;
+			if(map2.containsKey(word) && !map2.get(word).equals(p[pi])) continue;
+			map1.putIfAbsent(p[pi],word);
+			map2.putIfAbsent(word,p[pi]);
+			if(helper(pi+1,si+i,str)) return true;
+
+			map1.remove(p[pi]);
+			map2.remove(word);
+		}
+
+		return false;
+	}
 }
