@@ -3,13 +3,12 @@ package leetcode.conquer.sol.dp;
 import java.util.Arrays;
 
 /*
- * The idea of this question is using the binarysearch method from Arrays to determine
- * the right index to enter in the dp array to insert our val. the dp array will always keep
- * the latest largest increasing subsequence because we just need to simply update the index in dp
- * based on what binarysearch method returns to us. the binarysearch method returns the largest index if 
- * no val in the array is greater than the given val. or a index that is equal to the first val's index that is
- * greater than the given val. so we can either replace a val or increment the array. everything we increment the arr
- * we increment len so at the end we just need to return the len as the result.
+ * the idea behind this solution is using the dp array and keep the longest subsequence range
+ * only update result when the arr hits the new max length.
+ * the dp array changes through us calling the arrays.binarysearch. when binarysearch returns a index that will
+ * increase our current longest subsequence range we update the result
+ * binarysearch returns actual index when a num is found
+ * binarysearch returns negative values when a num needs to be insert. for detail check the java doc
  * Time O(nLog(n)) Space O(n)
  */
 public class LongestIncreasingSubsequenceBinarySearchSol {

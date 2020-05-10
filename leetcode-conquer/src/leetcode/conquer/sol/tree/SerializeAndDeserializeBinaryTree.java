@@ -2,7 +2,7 @@ package leetcode.conquer.sol.tree;
 
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Queue;
 
 import leetcode.conquer.tree.TreeNode;
 /*
@@ -18,39 +18,38 @@ public class SerializeAndDeserializeBinaryTree {
 	
 	// Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-        StringBuilder sb = new StringBuilder("");
-        helper(root,sb);
+        StringBuilder sb = new StringBuilder();
+        helpers(root,sb);
         return sb.toString();
     }
-
-    void helper(TreeNode root, StringBuilder sb){
+    
+    private void helpers(TreeNode root, StringBuilder sb){
         if(root == null){
-            sb.append("null~");
-        }else{
-            sb.append(root.val);
-            sb.append("~");
-            helper(root.left,sb);
-            helper(root.right, sb);
+            sb.append("null,");
+            return;
         }
+        
+        sb.append(String.valueOf(root.val)+",");
+        helpers(root.left,sb);
+        helpers(root.right,sb);
     }
+
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        String[] arr = data.split("~");
-        return deserializeHelper(new LinkedList<>(Arrays.asList(arr)));
+        String[] arr = data.split(",");
+        Queue<String> queue = new LinkedList<>(Arrays.asList(arr));
+        return helperd(queue);
     }
     
-    TreeNode deserializeHelper(List<String> arr){
-        if(arr.get(0).equals("null")) {
-            arr.remove(0);
+    private TreeNode helperd(Queue<String> q){
+        if(q.peek().equals("null")){
+            q.poll();
             return null;
         }
-        
-        TreeNode node = new TreeNode(Integer.valueOf(arr.get(0)));
-        arr.remove(0);
-        node.left=deserializeHelper(arr);
-        node.right=deserializeHelper(arr);
-        
-        return node;
+        TreeNode root = new TreeNode(Integer.valueOf(q.poll()));
+        root.left = helperd(q);
+        root.right = helperd(q);
+        return root;
     }
 
 }

@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
- * a very smart sol we first transform the 2d matrix into 1d because distance in x and y are independent
- * after that we adding all x and y values into an array
- * from observation we know that the minimal distance between two points are their difference between x and y
- * so we loop through x and y arrays from both end and find the total differences 
- * the sum of the total difference on the x and y array is our result.
- * this link below explains this strategy very well 
+ * first we separate x and y points making this question one dimensional.
+ * a sort is involved in capturing x and y points, when capture all points on one x/y point for example (1,3) (1,4) are on x axis
+ * both will be captured before moving on to the next x axis which is 2. same logic goes to y
+ * by analysis the equation you will realize that the min distance between p1 and p2 is basically there difference between x 
+ * + their difference on their y points, based on this logic 
+ * all we needed to do is finding the difference on the Xs and Ys and sum both results together
+ * the calculation goes from two points further apart to closer. this is done by a while loop with l and r boundaries 
+ * the stored x and y point values are in an increment order.
  * https://www.youtube.com/watch?v=vCRnwe0L0sg
- * 
  * Time O(n*m) Space O(m+n)
  */
 public class BestMeetingPoint {
@@ -44,6 +45,35 @@ public class BestMeetingPoint {
         int res = 0;
         while(l<r){
             res+= list.get(r--) - list.get(l++); 
+        }
+        
+        return res;
+    }
+    
+    public int minTotalDistanceMyNavieSol(int[][] grid) {
+        if(grid == null || grid.length == 0) return 0;
+        List<int[]> people = new ArrayList<>();
+        List<int[]> meets = new ArrayList<>();
+        int m = grid.length;
+        int n = grid[0].length;
+        
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j] == 1){
+                    people.add(new int[]{j,i});
+                }
+                
+                meets.add(new int[]{j,i});
+            }
+        }
+        
+        int res = Integer.MAX_VALUE;
+        for(int[] meet : meets){
+            int dis = 0;
+            for(int[] p : people){
+                dis+= Math.abs(p[0] - meet[0]) + Math.abs(p[1]-meet[1]);
+            }
+            res = Math.min(res,dis);
         }
         
         return res;
