@@ -31,10 +31,8 @@ public class Main {
 		char a = 'a';
 		char b = 'b';
 		String str = "abc";
-		System.out.print("hello" + str.substring(str.length(), str.length()));
-		
-		int[] arr = new int[] {1,3,4,7};
-		System.out.println(Arrays.binarySearch(arr, 0,4,6));
+		System.out.print(new Exception());
+
 	}
 	
 }
