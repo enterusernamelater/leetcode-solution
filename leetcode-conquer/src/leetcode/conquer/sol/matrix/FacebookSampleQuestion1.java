@@ -1,19 +1,7 @@
-package leetcode.conquer.main;
+package leetcode.conquer.sol.matrix;
 
-import leetcode.conquer.sol.matrix.FacebookSampleQuestion3;
-
-/*
- * a class where I test my shit :)
- */
-public class Main {
-	public static void main(String[] args) {
-		int[][] res = Main.helper(8);
-		System.out.println(1);
-		
-		FacebookSampleQuestion3 sol = new FacebookSampleQuestion3();
-		
-	}
-	
+public class FacebookSampleQuestion1 {
+	public FacebookSampleQuestion1() {}
 	
 	public static int[][] helper(int n){
 		int[][] m = new int[n][n];
