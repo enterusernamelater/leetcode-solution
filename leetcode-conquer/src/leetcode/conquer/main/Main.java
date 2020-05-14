@@ -11,7 +11,18 @@ public class Main {
 		System.out.println(1);
 		
 		FacebookSampleQuestion3 sol = new FacebookSampleQuestion3();
+		//Solution s = new Solution();
+		String str = "a b c d";
+		String[] ar = str.split(" ", 2);
 		
+		for(String s : ar) {
+			System.out.println(s);
+		}
+		
+		char[] chs1 = "abc".toCharArray();
+		
+		
+		System.out.println(chs1[0]^chs1[1]^chs1[2]);
 	}
 	
 	
