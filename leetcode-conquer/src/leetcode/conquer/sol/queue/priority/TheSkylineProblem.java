@@ -1,4 +1,4 @@
-package leetcode.conquer.sol.heap;
+package leetcode.conquer.sol.queue.priority;
 
 import java.util.ArrayList;
 import java.util.Arrays;
