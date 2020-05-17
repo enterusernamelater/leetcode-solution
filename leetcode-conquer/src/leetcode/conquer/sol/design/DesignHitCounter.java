@@ -1,9 +1,6 @@
 package leetcode.conquer.sol.design;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
+import java.util.PriorityQueue;
 
 /*
  * the idea is to use a queue to store all the seconds that hits happened.
@@ -16,33 +13,23 @@ import java.util.Queue;
  * Space O(n) n is the hits happening within the 5 mins.
  */
 public class DesignHitCounter {
-	private Queue<Integer> q;
-	private Map<Integer,Integer> map; // this map is needed to count number of hits when all happening within a sec
-	/** Initialize your data structure here. */
-	public DesignHitCounter() {
-		this.q = new LinkedList<>();
-		this.map = new HashMap<>();
-	}
-
-	/** Record a hit.
+    private PriorityQueue<Integer> q = new PriorityQueue<>();
+    public DesignHitCounter() {
+        
+    }
+    
+    /** Record a hit.
         @param timestamp - The current timestamp (in seconds granularity). */
-	public void hit(int timestamp) {
-		if(map.containsKey(timestamp)){
-			map.put(timestamp, map.get(timestamp) + 1);
-			return;
-		}
-
-		while(!q.isEmpty() && timestamp - q.peek() >=300) map.remove(q.poll());
-		map.put(timestamp,1);
-		q.offer(timestamp);
-	}
-
-	/** Return the number of hits in the past 5 minutes.
+    public void hit(int timestamp) {
+        q.offer(timestamp);
+    }
+    
+    /** Return the number of hits in the past 5 minutes.
         @param timestamp - The current timestamp (in seconds granularity). */
-	public int getHits(int timestamp) {
-		while(!q.isEmpty() && timestamp - q.peek() >=300) map.remove(q.poll());
-		int res = 0;
-		for(int i : map.values()) res+=i;
-		return res;
-	}
+    public int getHits(int timestamp) {
+        while(!q.isEmpty() && timestamp - q.peek() >=300){
+            q.poll();
+        }
+        return q.size();
+    }
 }
