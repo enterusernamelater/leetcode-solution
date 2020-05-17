@@ -9,6 +9,8 @@ import java.util.Arrays;
  * increase our current longest subsequence range we update the result
  * binarysearch returns actual index when a num is found
  * binarysearch returns negative values when a num needs to be insert. for detail check the java doc
+ * 
+ * this is basically the solution for RussianDollEnvelopes
  * Time O(nLog(n)) Space O(n)
  */
 public class LongestIncreasingSubsequenceBinarySearchSol {
@@ -25,6 +27,7 @@ public class LongestIncreasingSubsequenceBinarySearchSol {
             if(index < 0) index = -(index + 1);
             dp[index] = num;
             //only update len if the num we search in the binary search is largest.
+            //len ensures the current dp has the longest increasing subsequence
             if(index == len) len++;
         }
         return len;

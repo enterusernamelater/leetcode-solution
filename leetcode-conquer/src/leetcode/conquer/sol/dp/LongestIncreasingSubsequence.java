@@ -5,6 +5,7 @@ package leetcode.conquer.sol.dp;
  * its own dp val to be either the val its self or the smaller val's dp +1 
  * dp[i] = Math.max(dp[i],dp[j]+1);
  * Time O(n^2) Space O(n)
+ * this is basically the solution for RussianDollEnvelopes
  */
 public class LongestIncreasingSubsequence {
 	public LongestIncreasingSubsequence() {}

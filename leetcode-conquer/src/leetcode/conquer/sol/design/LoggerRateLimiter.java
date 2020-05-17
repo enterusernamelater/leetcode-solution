@@ -19,8 +19,11 @@ public class LoggerRateLimiter {
         If this method returns false, the message will not be printed.
         The timestamp is in seconds granularity. */
     public boolean shouldPrintMessage(int timestamp, String message) {
-        if(this.map.containsKey(message) && (timestamp - this.map.get(message) < 10)) return false;
-        this.map.put(message,timestamp);
+        int time = map.getOrDefault(message, timestamp - 11);
+        
+        if(timestamp - time < 10) return false;
+        
+        map.put(message,timestamp);
         return true;
     }
 }

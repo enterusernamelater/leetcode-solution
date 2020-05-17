@@ -2,7 +2,7 @@ package leetcode.conquer.sol.recursion;
 
 /*
  * This code is referring to the sol below:
- * https://leetcode.com/problems/android-unlock-patterns/solution/
+ * https://www.youtube.com/watch?v=jEwKz9xcvEg
  * where the time complexity is o(n*n!) with space complexity of o(n) for the n is the max length
  */
 public class AndroidUnlockPatterns {

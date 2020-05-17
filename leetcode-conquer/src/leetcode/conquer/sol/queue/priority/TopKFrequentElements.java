@@ -1,6 +1,7 @@
 package leetcode.conquer.sol.queue.priority;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -46,4 +47,29 @@ public class TopKFrequentElements {
 
 		return res;
 	}
+	
+    public int[] topKFrequentNew(int[] nums, int k) {
+        if(nums == null || nums.length == 0 || k == 0) return new int[0];
+        Arrays.sort(nums);
+        
+        PriorityQueue<int[]> q = new PriorityQueue<>((a,b)-> (a[0]-b[0]));
+        
+        int j=0;
+        for(int i=0;i<nums.length;i++){
+            if(i== nums.length-1 || nums[i] != nums[i+1]){
+                q.offer(new int[]{i-j+1,nums[i]});
+                j = i+1;
+            }
+            
+            if(q.size() > k) q.poll();
+        }
+        
+        int[] res = new int[k];
+        while(k>0){
+            res[k-1] = q.poll()[1];
+            k--;
+        }
+        
+        return res;
+    }
 }
