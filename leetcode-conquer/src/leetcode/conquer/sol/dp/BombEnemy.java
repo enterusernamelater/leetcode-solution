@@ -1,13 +1,7 @@
 package leetcode.conquer.sol.dp;
 
 /*
- * This is a dp + memorization solution 
- * killr is the total 'e' to kill in the current row for the current pos until the first 'w'
- * killc keep track the total e to kill for the col j until its first 'w'
- * both killr and killc[j] resets in the first row/col or a wall is hit.
- * 
- * then the killr and killc[j] sum is used to calculate the max res;
- * link to this question is below:
+ * 这个视频讲的太优秀
  * https://www.youtube.com/watch?v=X3WrZG08ns8
  * Time O(n), Space O(n)
  */
@@ -15,35 +9,37 @@ public class BombEnemy {
 	public BombEnemy() {}
 
 	public int maxKilledEnemies(char[][] grid) {
-		if(grid.length == 0) return 0;
-		int h = grid.length;
-		int w = grid[0].length;
-		int killr = 0;
-		int[] killc = new int[w];
+		if(grid == null || grid.length == 0) return 0;
+		int m = grid.length, n=grid[0].length;
+
 		int res = 0;
+		int[] col = new int[n];
 
-		for(int i=0;i<h;i++){
-			for(int j=0;j<w;j++){
-				if(j==0 || grid[i][j-1] == 'W'){
-					killr = 0;
-					for(int k=j;k<w && grid[i][k] != 'W';k++){
-						if(grid[i][k] == 'E'){
-							killr++;
-						}
-					}
-				}
-
-				if(i == 0 || grid[i-1][j] == 'W'){
-					killc[j] = 0;
-					for(int k = i; k<h && grid[k][j] != 'W'; k++){
-						if(grid[k][j] == 'E'){
-							killc[j]++;
-						}
-					}
-				}
-
+		//用dp 记录左边和上面的炸弹数量
+		for(int i=0;i<m;i++){
+			int row=0;
+			for(int j=0;j<n;j++){
 				if(grid[i][j] == '0'){
-					res = Math.max(res, killr+killc[j]);
+
+					int total = row+col[j];
+
+					//向右走
+					for(int k=j+1;k<n && grid[i][k] != 'W';k++){
+						if(grid[i][k] == 'E') total++;
+					}
+
+					//向下走
+					for(int k=i+1;k<m && grid[k][j] != 'W';k++){
+						if(grid[k][j] == 'E') total++;
+					}
+					res = Math.max(res,total);
+				}
+				else if(grid[i][j] == 'E'){
+					row++;
+					col[j]++;
+				}else{
+					row = 0;
+					col[j]=0;
 				}
 			}
 		}

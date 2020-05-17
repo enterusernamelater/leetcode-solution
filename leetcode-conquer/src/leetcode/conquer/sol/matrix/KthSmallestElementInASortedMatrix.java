@@ -1,5 +1,9 @@
 package leetcode.conquer.sol.matrix;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /*
  * A binary search solution that first finds the mid value from low to high from the matrix as the 
  * matrix is sorted.
@@ -62,4 +66,20 @@ public class KthSmallestElementInASortedMatrix {
 		}
 		return count;
 	}
+	
+    public int kthSmallestMySol(int[][] matrix, int k) {
+        if(matrix == null || matrix.length == 0 || k == 0) return 0;
+        int m = matrix.length;
+        int n = matrix[0].length;
+        List<Integer> list = new ArrayList<>();
+        
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                list.add(matrix[i][j]);
+            }
+        }
+        
+        Collections.sort(list);
+        return list.get(k-1);
+    }
 }
