@@ -24,6 +24,7 @@ import java.util.List;
  *   *   *   *   *
 
  * Since is binary search Time Complexity close to O(nlog(n^2)), with constant space.
+ * cool vid that explains this question https://www.youtube.com/watch?v=G5wLN4UweAM&feature=youtu.be
  */
 public class KthSmallestElementInASortedMatrix {
 	public KthSmallestElementInASortedMatrix() {};
@@ -51,6 +52,7 @@ public class KthSmallestElementInASortedMatrix {
 		return l;
 	}
 
+	//this method finds the kth Smallest Element in a Sorted Matrix of mid
 	private int helper(int mid, int[][] matrix){
 		int n = matrix.length;
 		int i = n - 1;
