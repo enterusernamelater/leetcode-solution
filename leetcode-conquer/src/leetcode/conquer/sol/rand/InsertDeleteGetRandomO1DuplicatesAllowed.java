@@ -7,78 +7,57 @@ import java.util.Map;
 import java.util.Random;
 
 /*
- * we use two ds to track our data, first is an list with int[]
- * int[0] is the val, int[1] is the val's pos in the map's list
- * the map's key is the val, the val is the pos of the val in the arr.
- * when add, we add the val to the map along with the val's pos in the arr 
- * we also add val's map pos into val's int[1]
- * 
- * when remove 
- * we swap the remove val with the last one just like the previous question
- * remove arr's last one
- * set the swapped last elem's map pos index(it's int[1]) from the last to the remove val's index
- * this has to happen before the remove below see comment why
- * remove the remove val's map pos (the last one)
- * 
- * return ran pos is the same as the previous with the only difference being once the random result found
- * we return the first index [0] for its val.
- * 
- * link that explained this question very well:
- * https://www.youtube.com/watch?v=mRTgft9sBhA
+ * same approach as the InsertDeleteGetRandomO1 but the map will be storing a list of indexes
+ * so when remove we first get the last index for the remove val, then replace the index with the list's last val
+ * then we update the list's last val's indexes indexOf(list.size()-1) to the about to remove val's index.
+ * then we remove the remove val's index from its index list and remove the last index from the total list
+ * now if the remove val's index list is empty we know we have no more of this val. we remvoe the val from the map.
  * Time O(n) Space O(n)
  */
 public class InsertDeleteGetRandomO1DuplicatesAllowed {
 
-	List<int[]> arr;
-	Map<Integer,List<Integer>> map;
-
-	private Random rand = new Random();
-	/** Initialize your data structure here. */
-	public InsertDeleteGetRandomO1DuplicatesAllowed() {
-		this.arr = new ArrayList<>();
-		this.map = new HashMap<>();
-	}
-
-	/** Inserts a value to the collection. Returns true if the collection did not already contain the specified element. */
-	public boolean insert(int val) {
-		boolean res = !map.containsKey(val);
-		List<Integer> list = map.getOrDefault(val, new ArrayList<>());
-		list.add(arr.size());
-		map.putIfAbsent(val,list);
-		arr.add(new int[]{val,list.size()-1});
-		return res;
-	}
-
-	/** Removes a value from the collection. Returns true if the collection contained the specified element. */
-	public boolean remove(int val) {
-		if(!map.containsKey(val)) return false;
-
-		int[] last = arr.get(arr.size()-1);
-		List<Integer> valIdxs = map.get(val);
-		int idx = valIdxs.get(valIdxs.size()-1);
-
-		List<Integer> lastIdxs = map.get(last[0]);
-
-		arr.set(idx, last);
-		arr.remove(arr.size()-1);
-		//setting the new idx in map's pos of the swapped last element has to happen before the remove
-		//because if the remove val happens to be on the last pos of the arr too, then setting the map's value pos later
-		//will result array index out of bound simpily because the index in the int[1] has already being removed
-		//note in this case both the last and remove val are the same. 
-
-		lastIdxs.set(last[1],idx);
-
-		if(valIdxs.size()>1){
-			valIdxs.remove(valIdxs.size()-1);
-		}else{
-			map.remove(val);
-		}
-
-		return true;
-	}
-
-	/** Get a random element from the collection. */
-	public int getRandom() {
-		return arr.get(rand.nextInt(arr.size()))[0];
-	}
+	 /** Initialize your data structure here. */
+    Map<Integer,List<Integer>> map = new HashMap<>();
+    List<Integer> list = new ArrayList<>();
+    Random rand = new Random();
+    public InsertDeleteGetRandomO1DuplicatesAllowed() { }
+    
+    /** Inserts a value to the collection. Returns true if the collection did not already contain the specified element. */
+    public boolean insert(int val) {
+        boolean res = !map.containsKey(val);
+        List<Integer> indexes = map.getOrDefault(val, new ArrayList<>());
+        indexes.add(list.size());
+        map.putIfAbsent(val,indexes);
+        list.add(val);
+        return res;
+    }
+    
+    /** Removes a value from the collection. Returns true if the collection contained the specified element. */
+    public boolean remove(int val) {
+        if(!map.containsKey(val)) return false;
+        List<Integer> indexes = map.get(val);
+        //remove index
+        int index1 = indexes.get(indexes.size()-1);
+        
+        //replace value
+        int replace = list.get(list.size()-1);
+        
+        list.set(index1,replace);
+        List<Integer> replaceindexes = map.get(replace);
+        
+        replaceindexes.set(replaceindexes.indexOf(list.size()-1), index1);
+        //remove the val's index needs to happen after this replace val' index is updated
+        //this is because we need to handle a speical case where remove val and replace val are the same.
+        //we they are the same, replaceindexes and indexes are basically the same reference array.
+        indexes.remove(indexes.size()-1);
+        list.remove(list.size()-1);
+        
+        if(indexes.isEmpty()) map.remove(val);
+        return true;
+    }
+    
+    /** Get a random element from the collection. */
+    public int getRandom() {
+        return list.get(rand.nextInt(list.size()));
+    }
 }

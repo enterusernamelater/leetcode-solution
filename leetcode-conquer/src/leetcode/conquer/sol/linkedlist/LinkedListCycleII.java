@@ -21,25 +21,28 @@ public class LinkedListCycleII {
 	 * if no cycle found return null
 	 */
     public ListNode detectCycleMySol(ListNode head) {
-        ListNode savefirst = head;
+        if(head == null || head.next == null) return null;
+        
         ListNode first = head;
         ListNode second = head;
         
-        while(second != null && second.next != null){
+        while(second!= null && second.next != null){
             first = first.next;
             second = second.next.next;
+            
             if(first == second) break;
         }
         
-        if(second == null || second.next == null) return null;
+        if(second != first) return null;
         
-        first = savefirst;
-        while(first != second){
-            first = first.next;
-            second = second.next; 
+        ListNode start = head;
+        
+        while(start != second){
+            start = start.next;
+            second = second.next;
         }
         
-        return first;
+        return second;
     }
     
 	public ListNode detectCycle(ListNode head) {

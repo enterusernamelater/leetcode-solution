@@ -16,7 +16,8 @@ public class ShuffleAnArray {
     
     public ShuffleAnArray(int[] nums) {
         this.ori = nums;
-        this.arr = ori.clone();
+        this.arr = ori.clone(); //clone only returns deep copy on the primitive types. if object use array.copyOf
+        //Array.copyOf will return shallow copy too if is copying reference
     }
     
     private void swap(int i, int j){

@@ -2,67 +2,50 @@ package leetcode.conquer.sol.stack;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.HashSet;
-import java.util.Set;
 
 /*
- * use stack push everything in until we see ']' then we pop until we reach '[' to get val
- * then we get the multiple k by loop keeping popping with in the number hash set
- * once set.contains to peek return false then we compute the string and push back to the stack
- * in the end we pop stack one more time to get the result.
+ * use stack, stack stores 2 things  a repeating number at the top and the previous string
+ * when encounter a number we store the previous string and the number on top
+ * when we see a ] we pop the number and repeat the current string
+ * then pop the stack to obtain the previous string and attach the current string to the previous string, the whole string now
+ * is the current string, loop continues.
+ * else we know its a letter we just use the string builder
+ * 
+ * all calculation above is done using string builder.
  * 
  * Time O(n) Space O(n)
  */
 public class DecodeString {
 	public DecodeString() {}
 
-	@SuppressWarnings("serial")
-	private Set<String> set = new HashSet<String>(){{
-		add("0");
-		add("1");
-		add("2");
-		add("3");
-		add("4");
-		add("5");
-		add("6");
-		add("7");
-		add("8");
-		add("9");
-	}};
-
 	public String decodeString(String s) {
-		char[] arr = s.toCharArray();
-		Deque<String> stack = new ArrayDeque<>();
-		for(char c : arr){
-			if(']' != c){
-				stack.push(String.valueOf(c));
+		if(s == null || s.isEmpty()) return s;
+
+		Deque<StringBuilder> stack = new ArrayDeque<>();
+		StringBuilder curr = new StringBuilder();
+
+		for(int i=0;i<s.length();i++){
+			if(Character.isDigit(s.charAt(i))){
+				stack.push(curr);
+				int j=i;
+				//the while loop here because the number can be multiple digits. 
+				while(j<s.length() && s.charAt(j) != '[') j++;
+				stack.push(new StringBuilder(s.substring(i,j)));
+				curr = new StringBuilder();
+				i=j;
+			}else if(s.charAt(i) == ']'){
+				int size = Integer.valueOf(stack.pop().toString());
+				String val = curr.toString();
+				for(int k=0;k<size-1;k++) curr.append(val);
+				//no need to check if is Empty string always valid 
+				//worst case an empty sb will return as its added in the first place.
+				stack.peek().append(curr.toString());
+				curr = stack.pop();
 			}else{
-				String tmp = "";
-				while(!stack.isEmpty()){
-					String str = stack.pop();
-					if("[".equals(str)) break;
-					tmp = str + tmp;
-				}
-
-				String res = "";
-
-				while(set.contains(stack.peek())) res = stack.pop() + res;
-
-				int k = Integer.valueOf(res);
-
-				res = "";
-				for(int i=0;i<k;i++){
-					res += tmp;
-				}
-				stack.push(res);
+				curr.append(s.charAt(i));
 			}
 		}
 
-		String res = "";
-		while(!stack.isEmpty()){
-			res = stack.pop() + res;
-		}
-
-		return res;
+		return curr.toString();
 	}
 }
