@@ -13,29 +13,20 @@ public class Addbinary {
 	
     public String addBinary(String a, String b) {
         if(a.length() < b.length()) return addBinary(b,a);
-        int carry = 0;
+
+        char[] chs1 = a.toCharArray();
+        char[] chs2 = b.toCharArray();
+        int c = 0;
         StringBuilder sb = new StringBuilder();
-        int j = a.length()-1;
-        for(int i=b.length()-1;i>=0;i--){
-            int val1 = a.charAt(j) - '0';
-            int val2 = b.charAt(i) - '0';
-            int total = val1 + val2 + carry;
-            sb.append(total%2);
-            carry = total/2;
-            j--;
+        for(int i=chs1.length-1, j=chs2.length-1; i>=0 || j>=0 || c>0; i--,j--){
+            int val1 = i<0? 0 : chs1[i]-'0';
+            int val2 = j<0? 0 : chs2[j]-'0';
+            
+            int res = (val1 + val2 + c)%2;
+            c = (val1 + val2 + c)/2;
+            sb.append(res);
         }
-        //add the rest;
-        for(int i=j; i>=0; i--){
-            int val = a.charAt(i) - '0';
-            int total = val + carry;
-            sb.append(total%2);
-            carry = total/2;
-        }
-        if(carry > 0){
-           sb.append(carry);
-        }
-        
-        //string builder reverse is neat
+
         return sb.reverse().toString();
     }
 }
