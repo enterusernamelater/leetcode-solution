@@ -1,5 +1,8 @@
 package leetcode.conquer.main;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import leetcode.conquer.sol.matrix.FacebookSampleQuestion3;
 
 /*
@@ -7,22 +10,12 @@ import leetcode.conquer.sol.matrix.FacebookSampleQuestion3;
  */
 public class Main {
 	public static void main(String[] args) {
-		int[][] res = Main.helper(8);
-		System.out.println(1);
 		
-		FacebookSampleQuestion3 sol = new FacebookSampleQuestion3();
-		//Solution s = new Solution();
-		String str = "a b c d";
-		String[] ar = str.split(" ", 2);
+		char[] chs1 = "whakli".toCharArray();
+		Map<Character, Integer> map = new HashMap<>();
+		for(char c : chs1) map.put(c, 1);
 		
-		for(String s : ar) {
-			System.out.println(s);
-		}
-		
-		char[] chs1 = "abc".toCharArray();
-		
-		
-		System.out.println(chs1[0]^chs1[1]^chs1[2]);
+		for(char c : map.keySet()) System.out.println(c);
 	}
 	
 	

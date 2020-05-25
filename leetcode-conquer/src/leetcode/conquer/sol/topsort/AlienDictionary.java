@@ -32,57 +32,58 @@ public class AlienDictionary {
 	
     public String alienOrder(String[] words) {
         if(words == null || words.length == 0) return "";
-        Map<Character, Set<Character>> map = new HashMap<>();
+        Map<Character,Set<Character>> map = new HashMap<>();
         int[] inDegree = new int[26];
-        buildGraph(map,inDegree,words);
-        return bfs(map, inDegree);
+        buildGraph(map,words,inDegree);
+        return bfs(map,inDegree);
     }
     
-    private String bfs(Map<Character,Set<Character>> map, int[] inDegree){        
-        Queue<Character> q = new LinkedList<>();
+    private String bfs(Map<Character,Set<Character>> map, int[] inDegree){
         StringBuilder sb = new StringBuilder();
-        for(char c : map.keySet()){
+        Queue<Character> q = new LinkedList<>();
+        int total = map.size();
+        for(Character c : map.keySet()){
             if(inDegree[c-'a'] == 0){
                 q.offer(c); sb.append(c);
             }
         }
         
         while(!q.isEmpty()){
-            char cur = q.poll();
-            if(map.get(cur).isEmpty()) continue;
+            char out = q.poll();
+            Set<Character> set = map.get(out);
+            if(set.isEmpty()) continue;
             
-            for(char c : map.get(cur)){
-                if(--inDegree[c-'a']>0) continue;
-                q.offer(c); sb.append(c);
+            for(char c : set){
+                if(--inDegree[c-'a'] == 0){
+                    q.offer(c); sb.append(c);
+                }
             }
         }
         
-        return sb.toString().length() == map.size()? sb.toString() : "";
+        return sb.length() == total? sb.toString() : "";
     }
     
-    private void buildGraph(Map<Character,Set<Character>> map, int[] inDegree, String[] words){
-        for(String s : words)
-            for(char c : s.toCharArray())
-                map.putIfAbsent(c,new HashSet<>());
+    private void buildGraph(Map<Character,Set<Character>> map, String[] words, int[] inDegree){
+        for(String s : words){
+            for(char c : s.toCharArray()) map.putIfAbsent(c,new HashSet<>());
+        }
         
-        for(int i=1;i<words.length;i++){
-            char[] first = words[i-1].toCharArray();
-            char[] second = words[i].toCharArray();
-            int len = Math.min(first.length,second.length);
-            for(int j=0;j<len;j++){
-                if(first[j] != second[j]){
-                    if(map.get(first[j]).add(second[j])) inDegree[second[j] - 'a']++;
-                    break;
-                }
-                
-                //special case handle
-                //the sort order expects that when all the letters between two words (first and second) match until one of the word is out of bound, the out of bound word should be the first not the second. 
-                //(think about sort is ascending and shorter goes first)
-                //so when this special case is detected, we clear the map and return the build graph so the bfs later will return empty string.
-                if(j+1 == len && first.length > second.length){
-                    map.clear();
-                    return;
-                }   
+        for(int k=1;k<words.length;k++){
+            char[] chs1 = words[k-1].toCharArray();
+            char[] chs2 = words[k].toCharArray();
+            for(int i=0,j=0;i<chs1.length && j<chs2.length;i++,j++){
+               if(chs1[i] != chs2[j]){
+                   if(map.get(chs1[i]).add(chs2[j])) inDegree[chs2[j]-'a']++;
+                    break;   
+               }
+               //special case handle
+               //the sort order expects that when all the letters between two words (first and second) match until one of the word is out of bound, the out of bound word should be the first not the second. 
+               //(think about sort is ascending and shorter goes first)
+               //so when this special case is detected, we clear the map and return the build graph so the bfs later will return empty string.
+               if(i+1 < chs1.length && j+1==chs2.length){
+                   map.clear();
+                   return;
+               } 
             }
         }
     }

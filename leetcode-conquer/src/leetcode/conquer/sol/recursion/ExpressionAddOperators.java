@@ -12,37 +12,38 @@ import java.util.List;
 public class ExpressionAddOperators {
 	public ExpressionAddOperators() {}
 	
-	List<String> res = new ArrayList<>();
+	private List<String> res = new ArrayList<>();
     public List<String> addOperators(String num, int target) {
-        helper(num,target,"", 0,0,0);
+        if(num == null || num.length() == 0) return new ArrayList<>();
+        dfs(num,"",target,0,0,0);
         return res;
     }
     
-    private void helper(String num, int target, String exp, int index, int cur, int prev){
-        if(cur==target && index == num.length()){
-            res.add(exp);
-            return;
+    private void dfs(String num, String str, int target, int index, int curr, int prev){
+        if(target == curr && index == num.length()){
+            res.add(str); return;
         }
         
-        for(int i=1; i<=num.length()-index; i++){
-            String subStr = num.substring(index,index+i);
-            if(subStr.length()>1 && subStr.charAt(0) == '0') break;
+        //in this case index is always the starting point of the substring
+        for(int i=index+1;i<=num.length();i++){
+            String value = num.substring(index,i);
+            if(value.length()>1 && value.charAt(0) == '0') return;
+            Long longval = Long.valueOf(value);
+            if(longval > Integer.MAX_VALUE) return;
+            int intval= longval.intValue();
             
-            Long longVal = Long.valueOf(subStr);
-            if(longVal>Integer.MAX_VALUE) break;
-            int intVal = longVal.intValue();
-            if(index==0){
-                helper(num,target,subStr,i,intVal,intVal);
+            if(index == 0){
+                dfs(num,value,target,i,intval,intval);
                 continue;
             }
             
-            helper(num,target,exp+"+"+intVal,index+i,cur+intVal,intVal);
-            helper(num,target,exp+"-"+intVal,index+i,cur-intVal,-intVal);
+            dfs(num,str+"+"+value,target,i,curr+intval,intval);
+            dfs(num,str+"-"+value,target,i,curr-intval,-intval);
             /*
-             * during multiplication we times the previous but also minus the previous from the total beacause the previous
+             * during multiplication we times the previous but also minus the previous from the total because the previous
              * is now used in the multiplication the previous calculation no longer valid.
              */
-            helper(num,target,exp+"*"+intVal,index+i,cur-prev+prev*intVal,prev*intVal);  
+            dfs(num,str+"*"+value,target,i,curr - prev + intval*prev, prev*intval); 
         }
     }
 }

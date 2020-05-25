@@ -69,4 +69,28 @@ public class ReverseLinkedListII {
 		}
 		return dummy.next;
 	}
+	
+    public ListNode reverseBetweenMySolTwo(ListNode head, int m, int n) {       
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode start = dummy.next;
+        ListNode pre = dummy;
+        
+        pre.next = start;
+        for(int i=1;i<m;i++){
+            pre = pre.next;
+            start = start.next;
+        }
+        
+        for(int i=0; i<n-m; i++){
+            ListNode save = start.next;
+            start.next= start.next.next;
+            
+            save.next = pre.next;
+            pre.next = save;
+        }
+        
+        return dummy.next;
+        
+    }
 }
