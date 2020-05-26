@@ -3,6 +3,7 @@ package leetcode.conquer.sol.array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.PriorityQueue;
 
 /*
  * first we sort the intervals by its start, after than we compare each interval's start to the previous build
@@ -57,5 +58,21 @@ public class MergeIntervals {
         }
         
         return arr.toArray(new int[arr.size()][]);
+    }
+    
+    //heap solution
+    public int[][] mergeHeap(int[][] intervals) {
+        Arrays.sort(intervals,(a,b) -> (a[0] -b[0]));
+        PriorityQueue<int[]> q = new PriorityQueue<>((a,b) ->(b[1]-a[1]));
+        for(int i=0;i<intervals.length;i++){
+            
+            if(!q.isEmpty() && q.peek()[1]>=intervals[i][0]){
+                q.offer(new int[]{q.peek()[0], Math.max(q.poll()[1],intervals[i][1])});
+            }else{
+                q.offer(intervals[i]);
+            }
+        }
+        
+        return q.toArray(new int[q.size()][]);
     }
 }
