@@ -16,6 +16,9 @@ public class Main {
 		for(char c : chs1) map.put(c, 1);
 		
 		for(char c : map.keySet()) System.out.println(c);
+		String s = "0:start:0";
+		String[] arr = s.split(":");
+		
 	}
 	
 	
