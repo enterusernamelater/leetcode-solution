@@ -65,7 +65,7 @@ public class SearchSuggestionsSystem {
     
     /*
      * sort the list and use bst to determin the correct start index for each prefix on searchword
-     * Time O(nlogn(n))
+     * Time O(nlogn(m)) n being the length of searchword m being the number of product words.
      * Space constant besides the result
      */
     public List<List<String>> suggestedProductsBST(String[] products, String searchWord) {

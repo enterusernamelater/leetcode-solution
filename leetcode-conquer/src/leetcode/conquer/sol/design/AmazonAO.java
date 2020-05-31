@@ -58,11 +58,9 @@ public class AmazonAO
 		List<String> res = new ArrayList<>();
 		if(q.isEmpty()) return res;
 
-		Data data = q.poll();
-		int max = data.count;
-		while(!q.isEmpty() && data.count == max){
-			res.add(data.s);
-			data = q.poll();
+		int max = q.peek().count;
+		while(!q.isEmpty() && q.peek().count == max){
+			res.add(q.poll().s);
 		}
 		
 		return res;
