@@ -1,3 +1,4 @@
+
 package leetcode.conquer.sol.tree;
 
 import java.util.ArrayDeque;
@@ -36,18 +37,15 @@ public class BinarySearchTreeIterator {
 	}
 	
 	/** @return the next smallest number */
-	public int nextMySol() {
-		TreeNode node = stack.pop();
-		if(node.right != null){
-			TreeNode left = node.right;
-			while(left != null){
-				stack.push(left);
-				left = left.left;
-			}
-		}
-
-		return node.val;
-	}
+    public int nextMySol() {
+        TreeNode curr = stack.pop();
+        TreeNode node = curr.right;
+        while(node!= null){
+            stack.push(node);
+            node = node.left;
+        }
+        return curr.val;
+    }
 
 	/** @return whether we have a next smallest number */
 	public boolean hasNextMySol() {
