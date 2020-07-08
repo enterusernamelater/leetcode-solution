@@ -1,26 +1,87 @@
 package leetcode.conquer.main;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
-import leetcode.conquer.sol.matrix.FacebookSampleQuestion3;
+import leetcode.conquer.sol.linkedlist.ReverseLinkedLIstCycle;
+import leetcode.conquer.tree.Node;
 
 /*
  * a class where I test my shit :)
  */
 public class Main {
 	public static void main(String[] args) {
-		
-		char[] chs1 = "whakli".toCharArray();
-		Map<Character, Integer> map = new HashMap<>();
-		for(char c : chs1) map.put(c, 1);
-		
-		for(char c : map.keySet()) System.out.println(c);
-		String s = "0:start:0";
-		String[] arr = s.split(":");
-		
+
+		Integer val = 100000000 *  100000000;
+		BigInteger big1 = BigInteger.valueOf(1);
+		BigInteger big2 = BigInteger.valueOf(1024);
+		BigInteger bigInt = big1.multiply(big2);
+	    int res = 0;
+	    
+	    while(bigInt.compareTo(BigInteger.ZERO) >0) {
+		    BigInteger value = bigInt.and(BigInteger.valueOf(1));
+		    res += value.intValue();
+		    bigInt = bigInt.shiftRight(1);
+	    }
+
+
+	    System.out.println(res);
+	    
 	}
 	
+	static void printList(Node head)  
+	{  
+	    if (head == null)  
+	        return;  
+	  
+	    Node temp = head;  
+	    do
+	    {  
+	        System.out.print( temp.val + " ");  
+	        temp = temp.next;  
+	    } while (temp != head);  
+	}  
+	  
+	
+	public static int findDuplicate(int[] nums) {
+		for(int i=0;i<nums.length;i++) {
+			while(nums[i]-1 != i) {
+				if(nums[nums[i]-1] == nums[i]) return nums[i];
+				int tmp1 = nums[i];
+				int tmp2 = nums[nums[i]-1];
+				nums[i] = tmp2;
+				nums[tmp1-1] = tmp1;
+			}
+		}
+		
+		return -1;
+	}
+	
+	public static boolean canSchedule(int[][] scheduled, int[] schedule) {
+		if(scheduled == null || scheduled.length==0) return true;
+		Arrays.sort(scheduled,(a,b)->a[0]-b[0]);//the schedule is sorted 
+
+		int start = schedule[0];
+		int duration = schedule[1];
+		int end = start+duration;
+		if(end <= scheduled[0][0]) return true; //the case when schedule can be place in the beginning of scheduled
+		if(start >= scheduled[scheduled.length-1][0] + scheduled[scheduled.length-1][1]) return true; // the case when schedule can be place in the end of the scheduled
+
+		for(int i=1;i<scheduled.length;i++){
+		int[] time1 = scheduled[i-1];
+		int[] time2 = scheduled[i];
+			if(start >= time1[0] + time1[1] && end<= time2[0]) return true;	
+		}
+
+		return false;
+		}
+
+
 	
 	public static int[][] helper(int n){
 		int[][] m = new int[n][n];

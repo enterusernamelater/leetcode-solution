@@ -2,6 +2,7 @@ package leetcode.conquer.sol.recursion;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -24,86 +25,63 @@ public class WordLadderII {
 
 	public WordLadderII() {}
 
-	private List<List<String>> res = new ArrayList<>();
-	public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
-		if(wordList == null || wordList.size() ==0) return res;
-
-		Set<String> dict = new HashSet<>(wordList);
-
-		if(!dict.contains(endWord)) return res;
-
-		dict.remove(endWord);
-		dict.remove(beginWord);
-
-		Map<String, Integer> mapStep = new HashMap<>();
-		Map<String, List<String>> mapParent = new HashMap<>();
-
-		mapStep.put(beginWord,1);
-
-		Queue<String> q = new LinkedList<>();
-		q.offer(beginWord);
-
-		int step = 0;
-
-		boolean found = false;
-		while(!q.isEmpty() && !found){
-			int size = q.size();
-			step++;
-
-			for(int i=0;i<size;i++){
-				String word = q.poll();
-				char[] arr = word.toCharArray();
-				for(int j=0;j<arr.length;j++){
-					char c = arr[j];
-					for(char k='a'; k<='z'; k++){
-						if(k == c) continue;
-						arr[j] = k;
-						String newWord = String.valueOf(arr);
-
-						List<String> parents = mapParent.getOrDefault(newWord, new ArrayList<>());
-
-						if(newWord.equals(endWord)){
-							parents.add(word);
-							mapParent.put(newWord,parents);
-							found=true;
-							//mapStep.get(newWord) > step this ensures that we only add parents of the new word with in the same level of the bfs traverse
-						}else if(mapStep.containsKey(newWord) && mapStep.get(newWord) > step){
-							parents.add(word);
-							mapParent.put(newWord, parents);
-						}
-
-						if(!dict.contains(newWord)) continue;
-						dict.remove(newWord);
-
-						parents.add(word);
-						mapParent.put(newWord,parents);
-						mapStep.put(newWord,mapStep.get(word)+1);
-						q.offer(newWord);
-					}
-					arr[j] = c;
-				}
-			}
-		}
-
-		if(mapParent.containsKey(endWord)){
-			Deque<String> stack = new ArrayDeque<>();
-			stack.push(endWord);
-			helper(mapParent,endWord,beginWord,stack);
-		}
-
-		return res;
-	}
-
-	private void helper(Map<String, List<String>> map, String end, String start, Deque<String> stack){
-		if(start.equals(end)){
-			res.add(new ArrayList<>(stack));
-			return;
-		}
-
-		for(String str : map.get(end)){
-			stack.push(str);
-			helper(map,str,start,stack);
-			stack.pop();
-		}
-	}
+    private List<List<String>> res = new ArrayList<>();
+    public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
+        if(wordList == null || wordList.size() == 0) return new ArrayList<>();
+        Set<String> dict = new HashSet<>(wordList);
+        Queue<String> q = new LinkedList<>();
+        q.offer(beginWord);
+        
+        Map<String,List<String>> graph = new HashMap<>();
+        Map<String,Integer> levels = new HashMap<>();
+        levels.put(beginWord,1);
+        int step = 0;
+        
+        while(!q.isEmpty() && !q.peek().equals(endWord)){
+            step++;
+            for(int k=q.size();k>0;k--){
+                String child = q.poll();
+                char[] chs = child.toCharArray();
+                
+                for(int i=0;i<chs.length;i++){
+                    char ori = chs[i];
+                    for(char j='a'; j<='z' ;j++){
+                        if(j==ori) continue;
+                        chs[i] = j;
+                        String parent = new String(chs);
+                        List<String> list = graph.getOrDefault(parent,new ArrayList<>());
+                        //sometimes a child can genreate a duplicate parent that exists in the graph
+                        if(graph.containsKey(parent) && levels.get(parent) > step){
+                            list.add(child);
+                        }
+                        
+                        if(!dict.contains(parent)) continue;
+                        dict.remove(parent);
+                        q.offer(parent);
+                        list.add(child);
+                        graph.put(parent,list);
+                        levels.put(parent,levels.get(child)+1);
+                    }
+                    chs[i] = ori;
+                }
+            }
+        }
+        
+        if(!graph.containsKey(endWord)) return res;
+        dfs(graph, beginWord, endWord, new ArrayDeque<>(Arrays.asList(endWord)));
+        return res;
+    }
+    
+    private void dfs( Map<String,List<String>> graph, String beginWord, String endWord, Deque<String> stack){
+        if(endWord.equals(beginWord)){
+            res.add(new ArrayList<>(stack));
+            return;
+        }
+        
+        for(String word : graph.get(endWord)){
+            stack.push(word);
+            dfs(graph,beginWord,word,stack);
+            stack.pop();
+        }
+    }
 }

@@ -13,20 +13,40 @@ import java.util.PriorityQueue;
 public class FindMedianFromDataStream {
 	public FindMedianFromDataStream() {}
 	
-    PriorityQueue<Integer> s = new PriorityQueue<>((a,b) -> (b-a));
-    PriorityQueue<Integer> l = new PriorityQueue<>();
+    PriorityQueue<Integer> high = new PriorityQueue<>((a,b) -> (a-b));
+    PriorityQueue<Integer> low = new PriorityQueue<>((a,b) -> (b-a));
+    /** initialize your data structure here. */
     
     public void addNum(int num) {
-        if(s.isEmpty() || s.peek() >= num) s.offer(num);
-        else l.offer(num);
+        if(low.isEmpty()){
+            low.offer(num);
+            return;
+        }
         
-        //only throw to the second half we the first half is greater than the second half by two
-        //this way the first half is always the size greatest and no npe when finding the medium on the s.peek()
-        if(s.size() > l.size()+1) l.offer(s.poll());
-        else if(l.size() > s.size()) s.offer(l.poll());
+        if(low.peek()>num){
+            low.offer(num);
+        }else{
+            high.offer(num);
+        }
+        
+        /*
+         * allow both side low and high to be one more on the other side only pop if in-balance become greater than 1
+         */
+        if(low.size()>high.size()+1){
+            high.offer(low.poll());
+        }else if(high.size() > low.size() + 1){
+            low.offer(high.poll());
+        }
     }
     
     public double findMedian() {
-        return s.size() == l.size()? (s.peek() + l.peek())/2.0 : s.peek();
+        if((low.size() +high.size()) % 2 == 0){
+            return (double)((low.peek() + high.peek()) / 2.0);
+        }else if(low.size()>high.size()){
+            return low.peek();
+        }else{
+            return high.peek();
+        }
+       
     }
 }

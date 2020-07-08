@@ -25,4 +25,15 @@ public class Node {
         next = _next;
         random = _random;
     }
+    
+    public static Node getNode(int data)  
+    {  
+        // allocate memory for node  
+        Node newNode = new Node();  
+      
+        // put in the data  
+        newNode.val = data;  
+        newNode.next = null;  
+        return newNode;  
+    }  
 };

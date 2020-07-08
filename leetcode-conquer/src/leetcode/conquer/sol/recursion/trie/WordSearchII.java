@@ -2,7 +2,9 @@ package leetcode.conquer.sol.recursion.trie;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 
 /*
@@ -55,4 +57,53 @@ public class WordSearchII {
         helper(i,j-1,trie,board,str);
         board[i][j] = tmp;
     }
+    
+    public boolean isValid(String word1, String word2, Set<String> dict){
+    	if(word1.equals(word2)) return true;
+    	Queue<String> q = new LinkedList<>();
+    	q.offer(word1);
+
+    	while(!q.isEmpty()){
+    		for(int i=q.size();i>0;i--){
+    	String str = q.poll();
+    	if(str.equals(word2)) return true;
+    	List<String> list = new ArrayList<>(dict);
+    	for(String word : list){
+    		if(canReplace(word,str)){
+    		   q.offer(word);
+    		   dict.remove(word);
+    		}
+    }
+    }
+    	}
+
+    	return false;
+    }
+    
+    private boolean canReplace(String word1, String word2){
+    	if(Math.abs(word1.length()-word2.length()) >1) return false;
+    if(word1.length() > word2.length()) return canReplace(word2,word1);
+    char[] chs1 = word1.toCharArray();
+    char[] chs2 = word2.toCharArray();
+    int count=0;
+    if(chs1.length == chs2.length){
+    	for(int i=0;i<chs1.length;i++){
+    if(chs1[i] != chs2[i]) count++;
+    if(count > 1) return false;
+    	}
+    return true;
+    }
+    //word1 bc
+    //word2 ebc
+    int j = 0; //word1 index short word length
+    for(int i=0;i<chs2.length && j<chs1.length;i++){
+    	if(chs2[i] != chs1[j]) count++;
+    else j++;
+
+    if(count > 1) return false; 
+    }
+    return true;
+    }
+
+
 }
