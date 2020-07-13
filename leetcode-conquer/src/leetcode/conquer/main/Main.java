@@ -1,53 +1,29 @@
 package leetcode.conquer.main;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.PriorityQueue;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
-import leetcode.conquer.sol.linkedlist.ReverseLinkedLIstCycle;
-import leetcode.conquer.tree.Node;
+import leetcode.conquer.sol.array.OneSwapArray;
 
 /*
  * a class where I test my shit :)
  */
 public class Main {
 	public static void main(String[] args) {
-
-		Integer val = 100000000 *  100000000;
-		BigInteger big1 = BigInteger.valueOf(1);
-		BigInteger big2 = BigInteger.valueOf(1024);
-		BigInteger bigInt = big1.multiply(big2);
-	    int res = 0;
+		List<List<Integer>> lists = new ArrayList<List<Integer>>() {
+			private static final long serialVersionUID = 1L;
+		{
+			add(Arrays.asList(1,3,5,6,9));
+			add(new ArrayList<>());
+			add(Arrays.asList(2,6,8,9,10));
+		}};
 	    
-	    while(bigInt.compareTo(BigInteger.ZERO) >0) {
-		    BigInteger value = bigInt.and(BigInteger.valueOf(1));
-		    res += value.intValue();
-		    bigInt = bigInt.shiftRight(1);
-	    }
-
-
-	    System.out.println(res);
-	    
+		OneSwapArray sol = new OneSwapArray();
+		System.out.println(sol.oneSwapArray(new int[] {1,5,5,3,3,7}));
 	}
-	
-	static void printList(Node head)  
-	{  
-	    if (head == null)  
-	        return;  
-	  
-	    Node temp = head;  
-	    do
-	    {  
-	        System.out.print( temp.val + " ");  
-	        temp = temp.next;  
-	    } while (temp != head);  
-	}  
-	  
-	
+
+
 	public static int findDuplicate(int[] nums) {
 		for(int i=0;i<nums.length;i++) {
 			while(nums[i]-1 != i) {
