@@ -1,30 +1,54 @@
 package leetcode.conquer.main;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-
-import leetcode.conquer.sol.array.OneSwapArray;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.stream.Collectors;
 
 /*
  * a class where I test my shit :)
  */
 public class Main {
 	public static void main(String[] args) {
-		List<List<Integer>> lists = new ArrayList<List<Integer>>() {
-			private static final long serialVersionUID = 1L;
-		{
-			add(Arrays.asList(1,3,5,6,9));
-			add(new ArrayList<>());
-			add(Arrays.asList(2,6,8,9,10));
-		}};
-	    
-		OneSwapArray sol = new OneSwapArray();
-		System.out.println(sol.oneSwapArray(new int[] {1,5,5,3,3,7}));
+		int[] arr = {0, 1, 0, 1, 1, 0, 0, 1};
+		System.out.println("0: 01011001");
+		StringBuilder sb = new StringBuilder();
+		for(int j=1;j<100;j++) {
+			int[] newArr = new int[8];
+			sb.append(j);sb.append(": ");
+			for(int i=0;i<8;i++) {
+				if(i-1<0 || i+1 ==8) {
+					sb.append(0);
+					newArr[i] = 0;
+				}else {
+					if(arr[i-1] == arr[i+1]) {
+						newArr[i] = 1;
+						sb.append(1);
+					}else {
+						sb.append(0);
+						newArr[i] = 0;
+					}
+				}
+			}
+			System.out.println(sb.toString());
+			sb.setLength(0);
+			arr = newArr;
+		}
+		Map<String,Map> map = new HashMap<>();
+		int b = 1;
+		double a = b;
+		//PriorityQueue<Integer> left = new PriorityQueue<>((a,b) -> (b-a));
+		String str = "/a/b/c/d/e";
+		String[] strArr = str.split("/");
+		Queue<Integer> q = new LinkedList<>();
 	}
 
 
 	public static int findDuplicate(int[] nums) {
+	    PriorityQueue<Double> high = new PriorityQueue<>((a,b) -> a<b? 1:-1);
 		for(int i=0;i<nums.length;i++) {
 			while(nums[i]-1 != i) {
 				if(nums[nums[i]-1] == nums[i]) return nums[i];
