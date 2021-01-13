@@ -1,5 +1,7 @@
 package leetcode.conquer.sol.dp;
 
+import java.math.BigInteger;
+
 /*
  * a stupid dp question with many corner cases
  * a explanation vid for this question can be find through the linke below:
@@ -54,4 +56,16 @@ public class DecodeWaysII {
 		}
 		return (int)dp[s.length()];
 	}
+	
+    public int concatenatedBinary(int n) {
+        BigInteger mod = new BigInteger("1000000007");
+        StringBuilder sb = new StringBuilder();
+        for(int i=n;i>0;i--){
+            String bits = Integer.toBinaryString(i);
+            sb.insert(0, bits);
+        }
+        System.out.println(sb.toString().length());
+        BigInteger res = new BigInteger(sb.toString(), 2);
+        return res.mod(mod).intValue();
+    }
 }
