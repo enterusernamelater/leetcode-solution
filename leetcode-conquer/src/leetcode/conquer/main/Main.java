@@ -54,9 +54,17 @@ public class Main {
 //		
 //		Stream.of(value.toCharArray()).map(i->String.valueOf(i)).collect(Collectors.toList());
 		int[] test = {1,2};
-		String a= "";
+		String a= " jay.siyuan.he@gmail.com  f";
+		String[] arr = a.split(" ");
 		StringBuilder sb = new StringBuilder();
 		System.out.println(1^1);
+		String str= "a b ";
+		char[] carr = str.toCharArray();
+		carr[3] = 0;
+		System.out.println(new String(carr));
+		String str1 = "abc";
+		String str2 = "def";
+
 	}
 
 
