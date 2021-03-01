@@ -33,11 +33,13 @@ public class LongestAbsoluteFilePath {
             while(stack.size() > level) cur -= stack.pop();
             
             int size = str.length() - level + 1; // string length minus spaces "\t" + "\"
-            cur+=size;
             
             if(str.contains(".")){
-                res = Math.max(cur-1,res);
+                res = Math.max(cur+size-1,res);
+                continue;
             }
+            
+            cur+=size;
             stack.push(size);
         }
         return res;
